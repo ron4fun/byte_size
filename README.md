@@ -1,4 +1,4 @@
-## ByteSize
+## ByteSize [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Ron4fun/byte_size/blob/master/LICENSE) [![Build Status](https://travis-ci.org/Ron4fun/byte_size.svg?branch=master)](https://travis-ci.org/Ron4fun/byte_size)
 
 **`ByteSize`** is a library written in **Dart** language that handles how byte sizes are represented and an easy to use interface to convert to other forms of representation also taking locale into consideration.
 
