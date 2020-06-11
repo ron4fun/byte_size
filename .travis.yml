@@ -14,7 +14,7 @@ dart_task:
   - dartfmt
   - test: --exclude-tags no-xvfb
   - test: --tags no-xvfb
-    xvfb: false
+    xvfb: true
 
   # Warnings are fatal, but we only analyze the lib/ directory.
   - dartanalyzer: --fatal-warnings lib
