@@ -6,7 +6,6 @@ dart:
 
 dart_task:
   - test: --platform vm
-  - test: --platform dartium
     install_dartium: true
   - test: --exclude-tags no-xvfb
     xvfb: true
