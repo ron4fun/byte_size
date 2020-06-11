@@ -96,7 +96,9 @@ class ByteSize {
       return _MegaByteSymbol;
     } else if (KiloBytes.abs() >= 1) {
       return _KiloByteSymbol;
-    } else if (Bytes.abs() >= 1) return _ByteSymbol;
+    } else if (Bytes.abs() >= 1) {
+      return _ByteSymbol;
+    }
     return _BitSymbol;
   } // end function LargestWholeNumberSymbol
 
@@ -112,7 +114,9 @@ class ByteSize {
       return MegaBytes;
     } else if (KiloBytes.abs() >= 1) {
       return KiloBytes;
-    } else if (Bytes.abs() >= 1) return Bytes;
+    } else if (Bytes.abs() >= 1) {
+      return Bytes;
+    }
     return Bits.toDouble();
   } // end function LargestWholeNumberValue
 
