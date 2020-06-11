@@ -1,8 +1,5 @@
 language: dart
 dart:
-  # Install the latest stable release
-  - stable
-  # Install the latest dev release
   - dev
   # Install a specific stable release - 2.8.3
   - "2.8.3"
@@ -11,21 +8,15 @@ dart_task:
   - test: --platform vm
   - test: --platform dartium
     install_dartium: true
-    dartfmt: true
-    dartanalyzer: true
   - test: --exclude-tags no-xvfb
-  - test: --tags no-xvfb
     xvfb: true
-    
-  # Warnings are fatal, but we only analyze the lib/ directory.
-  - dartanalyzer: --fatal-warnings lib
 
 env:
   global:
     - TRAVIS_DART_VERSION=2.8.3
     - TRAVIS_DART_TEST=true
-    - TRAVIS_DART_ANALYZE=true
-    - TRAVIS_DART_FORMAT=true
+    - TRAVIS_DART_ANALYZE=false
+    - TRAVIS_DART_FORMAT=false
 
 matrix:
   include:
