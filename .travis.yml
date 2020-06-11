@@ -11,11 +11,12 @@ dart_task:
   - test: --platform vm
   - test: --platform dartium
     install_dartium: true
-  - dartfmt
+    dartfmt: true
+    dartanalyzer: true
   - test: --exclude-tags no-xvfb
   - test: --tags no-xvfb
     xvfb: true
-
+    
   # Warnings are fatal, but we only analyze the lib/ directory.
   - dartanalyzer: --fatal-warnings lib
 
