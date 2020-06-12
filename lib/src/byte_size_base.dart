@@ -21,6 +21,7 @@ Copyright (c) 2020 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
 
 import 'package:locales/locales.dart';
 import 'package:intl/intl.dart';
+import 'dart:core';
 
 /// This exception indicates that there exist an issue with the argument passed.
 class FormatException implements Exception {
@@ -37,9 +38,9 @@ class ArgumentNullException implements Exception {
 /// ByteSize handles how byte sizes are represented.
 ///
 /// ```dart
-/// var size = new ByteSize(byteSize: 1024);
+/// var size = new ByteSize(1024);
 /// ```
-class ByteSize {
+class ByteSize implements Comparable {
   static const int _Int64MaxValue = 9223372036854775807;
   static const int _BitsInByte = 8;
   static const int _BytesInKiloByte = 1024;
@@ -89,20 +90,20 @@ class ByteSize {
   ];
 
   int _Bits;
-  double _Bytes;
-  double _KiloBytes;
-  double _MegaBytes;
-  double _GigaBytes;
-  double _TeraBytes;
-  double _PetaBytes;
+  num _Bytes;
+  num _KiloBytes;
+  num _MegaBytes;
+  num _GigaBytes;
+  num _TeraBytes;
+  num _PetaBytes;
 
   /// Initialize class with the size in Bytes denoted by [byteSize].
   ///
   /// ```dart
-  /// var size = new ByteSize(byteSize: 1024);
+  /// var size = new ByteSize(1024);
   /// ```
-  ByteSize({double byteSize = 0}) {
-    double tempDouble = byteSize * _BitsInByte;
+  ByteSize([num byteSize = 0]) {
+    double tempDouble = byteSize * _BitsInByte.toDouble();
 
     // Get Truncation because bits are whole units
     _Bits = tempDouble.toInt();
@@ -113,22 +114,28 @@ class ByteSize {
     _GigaBytes = byteSize / _BytesInGigaByte;
     _TeraBytes = byteSize / _BytesInTeraByte;
     _PetaBytes = byteSize / _BytesInPetaByte;
-  } // end cctr
+  } // end constructor
 
   /// Returns the size in Bits
   int get Bits => _Bits;
+
   /// Returns the size in Bytes
-  double get Bytes => _Bytes;
+  num get Bytes => _Bytes;
+
   /// Returns the size in KiloBytes
-  double get KiloBytes => _KiloBytes;
+  num get KiloBytes => _KiloBytes;
+
   /// Returns the size in MegaBytes
-  double get MegaBytes => _MegaBytes;
+  num get MegaBytes => _MegaBytes;
+
   /// Returns the size in GigaBytes
-  double get GigaBytes => _GigaBytes;
+  num get GigaBytes => _GigaBytes;
+
   /// Returns the size in TeraBytes
-  double get TeraBytes => _TeraBytes;
+  num get TeraBytes => _TeraBytes;
+
   /// Returns the size in PetaBytes
-  double get PetaBytes => _PetaBytes;
+  num get PetaBytes => _PetaBytes;
 
   String _LargestWholeNumberSymbol() {
     // Absolute value is used to deal with negative values
@@ -148,7 +155,7 @@ class ByteSize {
     return _BitSymbol;
   } // end function LargestWholeNumberSymbol
 
-  double _LargestWholeNumberValue() {
+  num _LargestWholeNumberValue() {
     // Absolute value is used to deal with negative values
     if (PetaBytes.abs() >= 1) {
       return PetaBytes;
@@ -163,7 +170,7 @@ class ByteSize {
     } else if (Bytes.abs() >= 1) {
       return Bytes;
     }
-    return Bits.toDouble();
+    return Bits;
   } // end function LargestWholeNumberValue
 
   /// Returns a ByteSize object initialized by size in Bits.
@@ -171,148 +178,111 @@ class ByteSize {
   /// ```dart
   /// var size = ByteSize.FromBits(10000);
   /// ```
-  static ByteSize FromBits(int value) {
-    double dBitsInByte = _BitsInByte.toDouble();
-    double tempDouble = value / dBitsInByte;
-    return ByteSize(byteSize: tempDouble);
-  } // end function FromBits
+  static ByteSize FromBits(int value) =>
+      ByteSize(value / _BitsInByte); // end function FromBits
 
   /// Returns a ByteSize object initialized by size in Bytes.
   ///
   /// ```dart
   /// var size = ByteSize.FromBytes(1024);
   /// ```
-  static ByteSize FromBytes(double value) {
-    return ByteSize(byteSize: value);
-  } // end function FromBytes
+  static ByteSize FromBytes(num value) =>
+      ByteSize(value); // end function FromBytes
 
   /// Returns a ByteSize object initialized by size in KiloBytes.
   ///
   /// ```dart
   /// var size = ByteSize.FromKiloBytes(10);
   /// ```
-  static ByteSize FromKiloBytes(double value) {
-    double tempDouble = value * _BytesInKiloByte;
-    return ByteSize(byteSize: tempDouble);
-  } // end function FromKiloBytes
+  static ByteSize FromKiloBytes(num value) =>
+      ByteSize(value * _BytesInKiloByte); // end function FromKiloBytes
 
   /// Returns a ByteSize object initialized by size in MegaBytes.
   ///
   /// ```dart
   /// var size = ByteSize.FromMegaBytes(10);
   /// ```
-  static ByteSize FromMegaBytes(double value) {
-    double tempDouble = value * _BytesInMegaByte;
-    return ByteSize(byteSize: tempDouble);
-  } // end function FromMegaBytes
+  static ByteSize FromMegaBytes(num value) =>
+      ByteSize(value * _BytesInMegaByte); // end function FromMegaBytes
 
   /// Returns a ByteSize object initialized by size in GigaBytes.
   ///
   /// ```dart
   /// var size = ByteSize.FromGigaBytes(10);
   /// ```
-  static ByteSize FromGigaBytes(double value) {
-    double tempDouble = value * _BytesInGigaByte;
-    return ByteSize(byteSize: tempDouble);
-  } // end function FromGigaBytes
+  static ByteSize FromGigaBytes(num value) =>
+      ByteSize(value * _BytesInGigaByte); // end function FromGigaBytes
 
   /// Returns a ByteSize object initialized by size in TeraBytes.
   ///
   /// ```dart
   /// var size = ByteSize.FromTeraBytes(10);
   /// ```
-  static ByteSize FromTeraBytes(double value) {
-    double tempDouble = value * _BytesInTeraByte;
-    return ByteSize(byteSize: tempDouble);
-  } // end function FromTeraBytes
+  static ByteSize FromTeraBytes(num value) =>
+      ByteSize(value * _BytesInTeraByte); // end function FromTeraBytes
 
   /// Returns a ByteSize object initialized by size in PetaBytes.
   ///
   /// ```dart
   /// var size = ByteSize.FromPetaBytes(10);
   /// ```
-  static ByteSize FromPetaBytes(double value) {
-    double tempDouble = value * _BytesInPetaByte;
-    return ByteSize(byteSize: tempDouble);
-  } // end function FromPetaBytes
+  static ByteSize FromPetaBytes(num value) =>
+      ByteSize(value * _BytesInPetaByte); // end function FromPetaBytes
 
   /// Returns -1, 0 or 1 when passed another ByteSize object.
   ///
   /// ```dart
-  /// ByteSize(byteSize: 1024).CompareTo(ByteSize.FromBytes(1024)) == 0;
+  /// ByteSize(1024).compareTo(ByteSize.FromBytes(1024)); // 0;
   /// ```
-  int CompareTo(ByteSize bs) {
-    // return an integer
-    if (Bits == bs.Bits) {
-      return 0;
-    } else if (Bits < bs.Bits) return -1;
-    return 1;
-  } // end function CompareTo
+  @override
+  int compareTo(dynamic bs) =>
+      Bits.compareTo(bs.Bits); // end function compareTo
 
   /// Returns the sum of two ByteSize objects.
-  ByteSize Add(ByteSize bs) {
-    return ByteSize(byteSize: Bytes + bs.Bytes);
-  } // end function Add
+  ByteSize Add(ByteSize bs) => ByteSize(Bytes + bs.Bytes); // end function Add
 
   /// Returns the sum of size in Bits and current ByteSize instance.
-  ByteSize AddBits(int value) {
-    return this + FromBits(value);
-  } // end function AddBits
+  ByteSize AddBits(int value) => this + FromBits(value); // end function AddBits
 
   /// Returns the sum of size in Bytes and current ByteSize instance.
-  ByteSize AddBytes(double value) {
-    return this + FromBytes(value);
-  } // end function AddBytes
+  ByteSize AddBytes(num value) =>
+      this + FromBytes(value); // end function AddBytes
 
   /// Returns the sum of size in KiloBytes and current ByteSize instance.
-  ByteSize AddKiloBytes(double value) {
-    return this + FromKiloBytes(value);
-  } // end function AddKiloBytes
+  ByteSize AddKiloBytes(num value) =>
+      this + FromKiloBytes(value); // end function AddKiloBytes
 
   /// Returns the sum of size in MegaBytes and current ByteSize instance.
-  ByteSize AddMegaBytes(double value) {
-    return this + FromMegaBytes(value);
-  } // end function AddMegaBytes
+  ByteSize AddMegaBytes(num value) =>
+      this + FromMegaBytes(value); // end function AddMegaBytes
 
   /// Returns the sum of size in GigaBytes and current ByteSize instance.
-  ByteSize AddGigaBytes(double value) {
-    return this + FromGigaBytes(value);
-  } // end function AddGigaBytes
+  ByteSize AddGigaBytes(num value) =>
+      this + FromGigaBytes(value); // end function AddGigaBytes
 
   /// Returns the sum of size in TeraBytes and current ByteSize instance.
-  ByteSize AddTeraBytes(double value) {
-    return this + FromTeraBytes(value);
-  } // end function AddTeraBytes
+  ByteSize AddTeraBytes(num value) =>
+      this + FromTeraBytes(value); // end function AddTeraBytes
 
   /// Returns the sum of size in PetaBytes and current ByteSize instance.
-  ByteSize AddPetaBytes(double value) {
-    return this + FromPetaBytes(value);
-  } // end function AddPetaBytes
+  ByteSize AddPetaBytes(num value) =>
+      this + FromPetaBytes(value); // end function AddPetaBytes
 
   /// Returns the difference of two ByteSize objects.
-  ByteSize Subtract(ByteSize bs) {
-    return ByteSize(byteSize: Bytes - bs.Bytes);
-  } // end function Subtract
+  ByteSize Subtract(ByteSize bs) =>
+      ByteSize(Bytes - bs.Bytes); // end function Subtract
 
   /// Returns if current ByteSize instance is less than another.
-  bool operator <(ByteSize bs) {
-    return Bits < bs.Bits;
-  }
+  bool operator <(ByteSize bs) => Bits < bs.Bits;
 
   /// Returns if current ByteSize instance is less than or equals another.
-  bool operator <=(ByteSize bs) {
-    return Bits <= bs.Bits;
-  }
+  bool operator <=(ByteSize bs) => Bits <= bs.Bits;
 
   /// Returns if current ByteSize instance is greater than another.
-  bool operator >(ByteSize bs) {
-    return Bits > bs.Bits;
-  }
+  bool operator >(ByteSize bs) => Bits > bs.Bits;
 
   /// Returns if current ByteSize instance is greater than or equals another.
-  bool operator >=(ByteSize bs) {
-    return Bits >= bs.Bits;
-  }
+  bool operator >=(ByteSize bs) => Bits >= bs.Bits;
 
   /// Returns if current ByteSize instance is equal to another.
   @override
@@ -322,23 +292,22 @@ class ByteSize {
   }
 
   /// Returns the sum of two ByteSize objects.
-  ByteSize operator +(ByteSize bs) {
-    return Add(bs);
-  }
+  ByteSize operator +(ByteSize bs) => Add(bs);
 
   /// Returns the difference of two ByteSize objects.
-  ByteSize operator -(ByteSize bs) {
-    return Subtract(bs);
-  }
+  ByteSize operator -(ByteSize bs) => Subtract(bs);
 
   /// Returns the string representation of the ByteSize instance
   /// i.e passing the [symbol], [precision] and or [locale_LANG] as arguments.
   ///
   /// ```dart
   /// var size = ByteSize.FromKiloBytes(10000);
-  /// size.ToString(symbol: 'MB', precision: 1, locale_LANG: Locale.fr_CA) == 9,8 MB;
+  /// print(size.ToString('MB', 1, Locale.fr_CA)); // 9,8 MB
   /// ```
-  String ToString({symbol = 'KB', precision = 2, locale_LANG = Locale.en_US}) {
+  String ToString(
+      [String symbol = 'KB',
+      int precision = 2,
+      Locale locale_LANG = Locale.en_US]) {
     symbol = _StripAllWhiteSpace(symbol);
 
     if (symbol.contains('PB')) {
@@ -359,36 +328,32 @@ class ByteSize {
     return '${_output(_LargestWholeNumberValue(), precision, locale_LANG)} ${_LargestWholeNumberSymbol()}';
   } // end function ToString
 
-  static String _output(double digits, int precision, locale) {
+  static String _output(num digits, int precision, locale) {
     try {
       var format = NumberFormat.decimalPattern('$locale');
-      // Added 1 to precision because of locale format function behaviour
-      return format
-          .format(double.parse(digits.toStringAsPrecision(precision + 1)));
+      return format.format(double.parse(digits.toStringAsFixed(precision)));
     } on Exception {
       throw FormatException('locale language not in the correct format');
     }
   } // end function _output
 
   static String _StripAllWhiteSpace(String txt) {
-    if (txt == null) return '';
+    if (txt == null || txt.isEmpty) return '';
 
-    String temp = '';
+    String c, temp = '';
     txt = txt.trim();
 
     for (int i = 0; i < txt.length; i++) {
-      String e = txt[i];
-      if (e == ' ') continue;
-      temp = temp + e;
+      c = txt[i];
+      if (c == ' ') continue;
+      temp = temp + c;
     } // end for
 
     return temp;
   } // end function StripAllWhiteSpace
 
-  static double _FloatingMod(double a, double b) {
-    double tempDouble = a / b;
-    return a - b * tempDouble.toInt();
-  } // end function _FloatingMod
+  static double _FloatingMod(double a, double b) =>
+      a - b * (a ~/ b); // end function _FloatingMod
 
   static bool _IsNullOrWhiteSpace(String txt) =>
       txt == null ? true : txt.trim().isEmpty;
@@ -413,13 +378,14 @@ class ByteSize {
     }
 
     // Get the index of the first non-digit character
-    String tempS = _StripAllWhiteSpace(value); // Protect against leading spaces
+    String c,
+        tempS = _StripAllWhiteSpace(value); // Protect against leading spaces
     bool found = false;
 
     // Pick first non-digit number
     int num = 1;
     for (int i = 0; i < tempS.length; i++) {
-      String c = tempS[i];
+      c = tempS[i];
       if (!(_NumArray.contains(c) || c == '.')) {
         found = true;
         break;

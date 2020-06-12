@@ -22,4 +22,3 @@ Copyright (c) 2020 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
 library byte_size;
 
 export 'src/byte_size_base.dart';
-

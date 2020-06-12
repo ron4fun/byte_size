@@ -1,3 +1,8 @@
+## 1.3.0
+
+- Updated the documentation
+- Implemented Comparable interface
+
 ## 1.2.1
 
 - Updated the documentation
