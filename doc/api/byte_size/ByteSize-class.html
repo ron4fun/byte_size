@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ByteSize class from the byte_size library, for the Dart programming language.">
+  <title>ByteSize class - byte_size library - Dart API</title>
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../static-assets/github.css">
+  <link rel="stylesheet" href="../static-assets/styles.css">
+  <link rel="icon" href="../static-assets/favicon.png">
+
+</head>
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">byte_size</a></li>
+    <li><a href="../byte_size/byte_size-library.html">byte_size</a></li>
+    <li class="self-crumb">ByteSize class</li>
+  </ol>
+  <div class="self-name">ByteSize</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="../index.html">byte_size</a></li>
+      <li><a href="../byte_size/byte_size-library.html">byte_size</a></li>
+      <li class="self-crumb">ByteSize class</li>
+    </ol>
+    
+    <h5>byte_size library</h5>
+    <ol>
+      <li class="section-title"><a href="../byte_size/byte_size-library.html#classes">Classes</a></li>
+      <li><a href="../byte_size/ByteSize-class.html">ByteSize</a></li>
+      <li><a href="../byte_size/ParseOutput-class.html">ParseOutput</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+      <li class="section-title"><a href="../byte_size/byte_size-library.html#exceptions">Exceptions</a></li>
+      <li><a href="../byte_size/ArgumentNullException-class.html">ArgumentNullException</a></li>
+      <li><a href="../byte_size/FormatException-class.html">FormatException</a></li>
+    </ol>
+  </div>
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <div><h1><span class="kind-class">ByteSize</span> class </h1></div>
+
+    <section class="desc markdown">
+      <p>ByteSize handles how byte sizes are represented.</p>
+<pre class="language-dart"><code class="language-dart">var size = new ByteSize(1024);
+</code></pre>
+    </section>
+    
+    <section>
+      <dl class="dl-horizontal">
+
+        <dt>Implemented types</dt>
+        <dd>
+          <ul class="comma-separated clazz-relationships">
+            <li>Comparable</li>
+          </ul>
+        </dd>
+
+
+
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="constructors">
+      <h2>Constructors</h2>
+
+      <dl class="constructor-summary-list">
+        <dt id="ByteSize" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/ByteSize.html">ByteSize</a></span><span class="signature">(<span class="parameter" id="-param-byteSize">[<span class="type-annotation">num</span> <span class="parameter-name">byteSize</span> = <span class="default-value">0</span>]</span><wbr>)</span>
+        </dt>
+        <dd>
+          Initialize class with the size in Bytes denoted by <code>byteSize</code>. <a href="../byte_size/ByteSize/ByteSize.html">[...]</a>
+        </dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="Bits" class="property">
+          <span class="name"><a href="../byte_size/ByteSize/Bits.html">Bits</a></span>
+          <span class="signature">&#8594; int</span>         
+        </dt>
+        <dd>
+          Returns the size in Bits 
+                  <div class="features">read-only</div>
+</dd>
+        <dt id="Bytes" class="property">
+          <span class="name"><a href="../byte_size/ByteSize/Bytes.html">Bytes</a></span>
+          <span class="signature">&#8594; num</span>         
+        </dt>
+        <dd>
+          Returns the size in Bytes 
+                  <div class="features">read-only</div>
+</dd>
+        <dt id="GigaBytes" class="property">
+          <span class="name"><a href="../byte_size/ByteSize/GigaBytes.html">GigaBytes</a></span>
+          <span class="signature">&#8594; num</span>         
+        </dt>
+        <dd>
+          Returns the size in GigaBytes 
+                  <div class="features">read-only</div>
+</dd>
+        <dt id="KiloBytes" class="property">
+          <span class="name"><a href="../byte_size/ByteSize/KiloBytes.html">KiloBytes</a></span>
+          <span class="signature">&#8594; num</span>         
+        </dt>
+        <dd>
+          Returns the size in KiloBytes 
+                  <div class="features">read-only</div>
+</dd>
+        <dt id="MegaBytes" class="property">
+          <span class="name"><a href="../byte_size/ByteSize/MegaBytes.html">MegaBytes</a></span>
+          <span class="signature">&#8594; num</span>         
+        </dt>
+        <dd>
+          Returns the size in MegaBytes 
+                  <div class="features">read-only</div>
+</dd>
+        <dt id="PetaBytes" class="property">
+          <span class="name"><a href="../byte_size/ByteSize/PetaBytes.html">PetaBytes</a></span>
+          <span class="signature">&#8594; num</span>         
+        </dt>
+        <dd>
+          Returns the size in PetaBytes 
+                  <div class="features">read-only</div>
+</dd>
+        <dt id="TeraBytes" class="property">
+          <span class="name"><a href="../byte_size/ByteSize/TeraBytes.html">TeraBytes</a></span>
+          <span class="signature">&#8594; num</span>         
+        </dt>
+        <dd>
+          Returns the size in TeraBytes 
+                  <div class="features">read-only</div>
+</dd>
+        <dt id="hashCode" class="property inherited">
+          <span class="name"><a href="../byte_size/ByteSize/hashCode.html">hashCode</a></span>
+          <span class="signature">&#8594; int</span>         
+        </dt>
+        <dd class="inherited">
+          The hash code for this object. <a href="../byte_size/ByteSize/hashCode.html">[...]</a>
+                  <div class="features">read-only, inherited</div>
+</dd>
+        <dt id="runtimeType" class="property inherited">
+          <span class="name"><a href="../byte_size/ByteSize/runtimeType.html">runtimeType</a></span>
+          <span class="signature">&#8594; Type</span>         
+        </dt>
+        <dd class="inherited">
+          A representation of the runtime type of the object. 
+                  <div class="features">read-only, inherited</div>
+</dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="instance-methods">
+      <h2>Methods</h2>
+      <dl class="callables">
+        <dt id="Add" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/Add.html">Add</a></span><span class="signature">(<wbr><span class="parameter" id="Add-param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of two ByteSize objects. 
+                  
+</dd>
+        <dt id="AddBits" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/AddBits.html">AddBits</a></span><span class="signature">(<wbr><span class="parameter" id="AddBits-param-value"><span class="type-annotation">int</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of size in Bits and current ByteSize instance. 
+                  
+</dd>
+        <dt id="AddBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/AddBytes.html">AddBytes</a></span><span class="signature">(<wbr><span class="parameter" id="AddBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of size in Bytes and current ByteSize instance. 
+                  
+</dd>
+        <dt id="AddGigaBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/AddGigaBytes.html">AddGigaBytes</a></span><span class="signature">(<wbr><span class="parameter" id="AddGigaBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of size in GigaBytes and current ByteSize instance. 
+                  
+</dd>
+        <dt id="AddKiloBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/AddKiloBytes.html">AddKiloBytes</a></span><span class="signature">(<wbr><span class="parameter" id="AddKiloBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of size in KiloBytes and current ByteSize instance. 
+                  
+</dd>
+        <dt id="AddMegaBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/AddMegaBytes.html">AddMegaBytes</a></span><span class="signature">(<wbr><span class="parameter" id="AddMegaBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of size in MegaBytes and current ByteSize instance. 
+                  
+</dd>
+        <dt id="AddPetaBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/AddPetaBytes.html">AddPetaBytes</a></span><span class="signature">(<wbr><span class="parameter" id="AddPetaBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of size in PetaBytes and current ByteSize instance. 
+                  
+</dd>
+        <dt id="AddTeraBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/AddTeraBytes.html">AddTeraBytes</a></span><span class="signature">(<wbr><span class="parameter" id="AddTeraBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of size in TeraBytes and current ByteSize instance. 
+                  
+</dd>
+        <dt id="compareTo" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/compareTo.html">compareTo</a></span><span class="signature">(<wbr><span class="parameter" id="compareTo-param-bs"><span class="type-annotation">dynamic</span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; int</span>
+          </span>
+                  </dt>
+        <dd>
+          Returns -1, 0 or 1 when passed another ByteSize object. <a href="../byte_size/ByteSize/compareTo.html">[...]</a>
+                  <div class="features">override</div>
+</dd>
+        <dt id="Subtract" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/Subtract.html">Subtract</a></span><span class="signature">(<wbr><span class="parameter" id="Subtract-param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the difference of two ByteSize objects. 
+                  
+</dd>
+        <dt id="ToString" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/ToString.html">ToString</a></span><span class="signature">(<wbr><span class="parameter" id="ToString-param-symbol">[<span class="type-annotation">String</span> <span class="parameter-name">symbol</span> = <span class="default-value">'KB'</span>, </span><wbr><span class="parameter" id="ToString-param-precision"><span class="type-annotation">int</span> <span class="parameter-name">precision</span> = <span class="default-value">2</span>, </span><wbr><span class="parameter" id="ToString-param-locale_LANG"><span class="type-annotation">Locale</span> <span class="parameter-name">locale_LANG</span> = <span class="default-value">Locale.en_US</span>]</span><wbr>)
+            <span class="returntype parameter">&#8594; String</span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the string representation of the ByteSize instance
+i.e passing the <code>symbol</code>, <code>precision</code> and or <code>locale_LANG</code> as arguments. <a href="../byte_size/ByteSize/ToString.html">[...]</a>
+                  
+</dd>
+        <dt id="noSuchMethod" class="callable inherited">
+          <span class="name"><a href="../byte_size/ByteSize/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation">Invocation</span> <span class="parameter-name">invocation</span></span><wbr>)
+            <span class="returntype parameter">&#8594; dynamic</span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Invoked when a non-existent method or property is accessed. <a href="../byte_size/ByteSize/noSuchMethod.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
+        <dt id="toString" class="callable inherited">
+          <span class="name"><a href="../byte_size/ByteSize/toString.html">toString</a></span><span class="signature">(<wbr>)
+            <span class="returntype parameter">&#8594; String</span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Returns a string representation of this object. 
+                  <div class="features">inherited</div>
+</dd>
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="operators">
+      <h2>Operators</h2>
+      <dl class="callables">
+        <dt id="operator +" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/operator_plus.html">operator +</a></span><span class="signature">(<wbr><span class="parameter" id="+-param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the sum of two ByteSize objects. 
+                  
+</dd>
+        <dt id="operator -" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/operator_minus.html">operator -</a></span><span class="signature">(<wbr><span class="parameter" id="--param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the difference of two ByteSize objects. 
+                  
+</dd>
+        <dt id="operator &lt;" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/operator_less.html">operator <</a></span><span class="signature">(<wbr><span class="parameter" id="<-param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+                  </dt>
+        <dd>
+          Returns if current ByteSize instance is less than another. 
+                  
+</dd>
+        <dt id="operator &lt;=" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/operator_less_equal.html">operator <=</a></span><span class="signature">(<wbr><span class="parameter" id="<=-param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+                  </dt>
+        <dd>
+          Returns if current ByteSize instance is less than or equals another. 
+                  
+</dd>
+        <dt id="operator ==" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-bs"><span class="type-annotation">dynamic</span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+                  </dt>
+        <dd>
+          Returns if current ByteSize instance is equal to another. 
+                  <div class="features">override</div>
+</dd>
+        <dt id="operator &gt;" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/operator_greater.html">operator ></a></span><span class="signature">(<wbr><span class="parameter" id=">-param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+                  </dt>
+        <dd>
+          Returns if current ByteSize instance is greater than another. 
+                  
+</dd>
+        <dt id="operator &gt;=" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/operator_greater_equal.html">operator >=</a></span><span class="signature">(<wbr><span class="parameter" id=">=-param-bs"><span class="type-annotation"><a href="../byte_size/ByteSize-class.html">ByteSize</a></span> <span class="parameter-name">bs</span></span><wbr>)
+            <span class="returntype parameter">&#8594; bool</span>
+          </span>
+                  </dt>
+        <dd>
+          Returns if current ByteSize instance is greater than or equals another. 
+                  
+</dd>
+      </dl>
+    </section>
+
+
+    <section class="summary offset-anchor" id="static-methods">
+      <h2>Static Methods</h2>
+      <dl class="callables">
+        <dt id="FromBits" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/FromBits.html">FromBits</a></span><span class="signature">(<wbr><span class="parameter" id="FromBits-param-value"><span class="type-annotation">int</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object initialized by size in Bits. <a href="../byte_size/ByteSize/FromBits.html">[...]</a>
+                  
+</dd>
+        <dt id="FromBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/FromBytes.html">FromBytes</a></span><span class="signature">(<wbr><span class="parameter" id="FromBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object initialized by size in Bytes. <a href="../byte_size/ByteSize/FromBytes.html">[...]</a>
+                  
+</dd>
+        <dt id="FromGigaBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/FromGigaBytes.html">FromGigaBytes</a></span><span class="signature">(<wbr><span class="parameter" id="FromGigaBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object initialized by size in GigaBytes. <a href="../byte_size/ByteSize/FromGigaBytes.html">[...]</a>
+                  
+</dd>
+        <dt id="FromKiloBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/FromKiloBytes.html">FromKiloBytes</a></span><span class="signature">(<wbr><span class="parameter" id="FromKiloBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object initialized by size in KiloBytes. <a href="../byte_size/ByteSize/FromKiloBytes.html">[...]</a>
+                  
+</dd>
+        <dt id="FromMegaBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/FromMegaBytes.html">FromMegaBytes</a></span><span class="signature">(<wbr><span class="parameter" id="FromMegaBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object initialized by size in MegaBytes. <a href="../byte_size/ByteSize/FromMegaBytes.html">[...]</a>
+                  
+</dd>
+        <dt id="FromPetaBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/FromPetaBytes.html">FromPetaBytes</a></span><span class="signature">(<wbr><span class="parameter" id="FromPetaBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object initialized by size in PetaBytes. <a href="../byte_size/ByteSize/FromPetaBytes.html">[...]</a>
+                  
+</dd>
+        <dt id="FromTeraBytes" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/FromTeraBytes.html">FromTeraBytes</a></span><span class="signature">(<wbr><span class="parameter" id="FromTeraBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object initialized by size in TeraBytes. <a href="../byte_size/ByteSize/FromTeraBytes.html">[...]</a>
+                  
+</dd>
+        <dt id="GetMaxValue" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/GetMaxValue.html">GetMaxValue</a></span><span class="signature">(<wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the maximum possible ByteSize objects. 
+                  
+</dd>
+        <dt id="GetMinValue" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/GetMinValue.html">GetMinValue</a></span><span class="signature">(<wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns the minimum possible ByteSize objects. 
+                  
+</dd>
+        <dt id="Parse" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/Parse.html">Parse</a></span><span class="signature">(<wbr><span class="parameter" id="Parse-param-value"><span class="type-annotation">String</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ByteSize-class.html">ByteSize</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ByteSize object by parsing a string value and
+throws an exception if argument is incorrectly formatted. <a href="../byte_size/ByteSize/Parse.html">[...]</a>
+                  
+</dd>
+        <dt id="TryParse" class="callable">
+          <span class="name"><a href="../byte_size/ByteSize/TryParse.html">TryParse</a></span><span class="signature">(<wbr><span class="parameter" id="TryParse-param-value"><span class="type-annotation">String</span> <span class="parameter-name">value</span></span><wbr>)
+            <span class="returntype parameter">&#8594; <a href="../byte_size/ParseOutput-class.html">ParseOutput</a></span>
+          </span>
+                  </dt>
+        <dd>
+          Returns a ParseOutput object by parsing a string value. <a href="../byte_size/ByteSize/TryParse.html">[...]</a>
+                  
+</dd>
+      </dl>
+    </section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+    <ol>
+    
+      <li class="section-title"><a href="../byte_size/ByteSize-class.html#constructors">Constructors</a></li>
+      <li><a href="../byte_size/ByteSize/ByteSize.html">ByteSize</a></li>
+    
+      <li class="section-title">
+        <a href="../byte_size/ByteSize-class.html#instance-properties">Properties</a>
+      </li>
+      <li><a href="../byte_size/ByteSize/Bits.html">Bits</a></li>
+      <li><a href="../byte_size/ByteSize/Bytes.html">Bytes</a></li>
+      <li><a href="../byte_size/ByteSize/GigaBytes.html">GigaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/KiloBytes.html">KiloBytes</a></li>
+      <li><a href="../byte_size/ByteSize/MegaBytes.html">MegaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/PetaBytes.html">PetaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/TeraBytes.html">TeraBytes</a></li>
+      <li class="inherited"><a href="../byte_size/ByteSize/hashCode.html">hashCode</a></li>
+      <li class="inherited"><a href="../byte_size/ByteSize/runtimeType.html">runtimeType</a></li>
+    
+      <li class="section-title"><a href="../byte_size/ByteSize-class.html#instance-methods">Methods</a></li>
+      <li><a href="../byte_size/ByteSize/Add.html">Add</a></li>
+      <li><a href="../byte_size/ByteSize/AddBits.html">AddBits</a></li>
+      <li><a href="../byte_size/ByteSize/AddBytes.html">AddBytes</a></li>
+      <li><a href="../byte_size/ByteSize/AddGigaBytes.html">AddGigaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/AddKiloBytes.html">AddKiloBytes</a></li>
+      <li><a href="../byte_size/ByteSize/AddMegaBytes.html">AddMegaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/AddPetaBytes.html">AddPetaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/AddTeraBytes.html">AddTeraBytes</a></li>
+      <li><a href="../byte_size/ByteSize/compareTo.html">compareTo</a></li>
+      <li><a href="../byte_size/ByteSize/Subtract.html">Subtract</a></li>
+      <li><a href="../byte_size/ByteSize/ToString.html">ToString</a></li>
+      <li class="inherited"><a href="../byte_size/ByteSize/noSuchMethod.html">noSuchMethod</a></li>
+      <li class="inherited"><a href="../byte_size/ByteSize/toString.html">toString</a></li>
+    
+      <li class="section-title"><a href="../byte_size/ByteSize-class.html#operators">Operators</a></li>
+      <li><a href="../byte_size/ByteSize/operator_plus.html">operator +</a></li>
+      <li><a href="../byte_size/ByteSize/operator_minus.html">operator -</a></li>
+      <li><a href="../byte_size/ByteSize/operator_less.html">operator <</a></li>
+      <li><a href="../byte_size/ByteSize/operator_less_equal.html">operator <=</a></li>
+      <li><a href="../byte_size/ByteSize/operator_equals.html">operator ==</a></li>
+      <li><a href="../byte_size/ByteSize/operator_greater.html">operator ></a></li>
+      <li><a href="../byte_size/ByteSize/operator_greater_equal.html">operator >=</a></li>
+    
+    
+      <li class="section-title"><a href="../byte_size/ByteSize-class.html#static-methods">Static methods</a></li>
+      <li><a href="../byte_size/ByteSize/FromBits.html">FromBits</a></li>
+      <li><a href="../byte_size/ByteSize/FromBytes.html">FromBytes</a></li>
+      <li><a href="../byte_size/ByteSize/FromGigaBytes.html">FromGigaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/FromKiloBytes.html">FromKiloBytes</a></li>
+      <li><a href="../byte_size/ByteSize/FromMegaBytes.html">FromMegaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/FromPetaBytes.html">FromPetaBytes</a></li>
+      <li><a href="../byte_size/ByteSize/FromTeraBytes.html">FromTeraBytes</a></li>
+      <li><a href="../byte_size/ByteSize/GetMaxValue.html">GetMaxValue</a></li>
+      <li><a href="../byte_size/ByteSize/GetMinValue.html">GetMinValue</a></li>
+      <li><a href="../byte_size/ByteSize/Parse.html">Parse</a></li>
+      <li><a href="../byte_size/ByteSize/TryParse.html">TryParse</a></li>
+    
+    
+    </ol>
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    byte_size
+      1.3.0
+  </span>
+
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../static-assets/typeahead.bundle.min.js"></script>
+<script src="../static-assets/highlight.pack.js"></script>
+<script src="../static-assets/URI.js"></script>
+<script src="../static-assets/script.js"></script>
+
+
+</body>
+
+</html>
