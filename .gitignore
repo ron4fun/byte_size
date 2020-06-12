@@ -11,4 +11,4 @@ pubspec.lock
 build/
 
 # Directory created by dartdoc
-doc/api/
+#doc/api/
