@@ -353,9 +353,9 @@ class ByteSize {
       return '${_output(KiloBytes, precision, locale_LANG)} $symbol';
     } else if (symbol.contains(_ByteSymbol)) {
       return '${_output(Bytes, precision, locale_LANG)} $symbol';
-    } else if (symbol.contains(_BitSymbol))
+    } else if (symbol.contains(_BitSymbol)) {
       return '${_output(Bits.toDouble(), precision, locale_LANG)} $symbol';
-
+    }
     return '${_output(_LargestWholeNumberValue(), precision, locale_LANG)} ${_LargestWholeNumberSymbol()}';
   } // end function ToString
 
