@@ -1,6 +1,6 @@
 name: byte_size
 description: ByteSize is a library that handles how byte sizes are represented and an easy to use interface to convert to other forms of representation also taking locale into consideration.
-version: 1.1.1
+version: 1.2.0
 homepage: https://github.com/ron4fun/byte_size
 repository: https://github.com/ron4fun/byte_size
 
