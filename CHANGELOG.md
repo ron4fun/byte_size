@@ -1,3 +1,8 @@
+## 1.2.1
+
+- Updated the documentation
+- Updated by Mbadiwe Nnaemeka Ronald
+
 ## 1.2.0
 
 - Updated the documentation
