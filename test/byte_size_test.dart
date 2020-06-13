@@ -538,4 +538,44 @@ void main() {
       expect('9,77 MB', result);
     });
   });
+
+  group('ComparableMethodTest', () {
+    final b1 = ByteSize(1);
+    final b2 = ByteSize(2);
+    final b3 = ByteSize.FromBytes(3);
+
+    test('Returns0', () {
+      final b1 = ByteSize(1);
+      final b2 = ByteSize(1);
+      final b3 = ByteSize.FromBytes(1);
+
+      expect(b1.compareTo(b2), 0);
+      expect(b2.compareTo(b3), 0);
+    });
+
+    test('Returns1', () {
+      expect(b2.compareTo(b1), 1);
+      expect(b3.compareTo(b2), 1);
+    });
+
+    test('Returns-1', () {
+      expect(b1.compareTo(b2), -1);
+      expect(b2.compareTo(b3), -1);
+    });
+
+    test('CheckListSorting', () {
+      List<ByteSize> list_sizes = [b2, b3, b1];
+
+      assert(b1.compareTo(list_sizes[2]) == 0);
+      assert(b2.compareTo(list_sizes[0]) == 0);
+      assert(b3.compareTo(list_sizes[1]) == 0);
+
+      list_sizes.sort();
+
+      expect(b1.compareTo(list_sizes[0]), 0);
+      expect(b2.compareTo(list_sizes[1]), 0);
+      expect(b3.compareTo(list_sizes[2]), 0);
+    });
+
+  });
 }
