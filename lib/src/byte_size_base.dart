@@ -308,7 +308,6 @@ class ByteSize implements Comparable {
       [String symbol = 'KB',
       int precision = 2,
       Locale locale_LANG = Locale.en_US]) {
-
     symbol = symbol.replaceAll(' ', '');
 
     if (symbol.contains('PB')) {
@@ -364,8 +363,7 @@ class ByteSize implements Comparable {
     }
 
     // Get the index of the first non-digit character
-    String c,
-        tempS = value.replaceAll(' ', ''); // Protect against whitespaces
+    String c, tempS = value.replaceAll(' ', ''); // Protect against whitespaces
     bool found = false;
 
     // Pick first non-digit number
