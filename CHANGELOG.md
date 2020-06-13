@@ -1,3 +1,7 @@
+## 1.3.3
+
+- Updated version
+
 ## 1.3.2
 
 - Minor optimization
