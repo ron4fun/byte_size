@@ -308,7 +308,8 @@ class ByteSize implements Comparable {
       [String symbol = 'KB',
       int precision = 2,
       Locale locale_LANG = Locale.en_US]) {
-    symbol = _StripAllWhiteSpace(symbol);
+
+    symbol = symbol.replaceAll(' ', '');
 
     if (symbol.contains('PB')) {
       return '${_output(PetaBytes, precision, locale_LANG)} $symbol';
@@ -337,21 +338,6 @@ class ByteSize implements Comparable {
     }
   } // end function _output
 
-  static String _StripAllWhiteSpace(String txt) {
-    if (txt == null || txt.isEmpty) return '';
-
-    String c, temp = '';
-    txt = txt.trim();
-
-    for (int i = 0; i < txt.length; i++) {
-      c = txt[i];
-      if (c == ' ') continue;
-      temp = temp + c;
-    } // end for
-
-    return temp;
-  } // end function StripAllWhiteSpace
-
   static double _FloatingMod(double a, double b) =>
       a - b * (a ~/ b); // end function _FloatingMod
 
@@ -379,7 +365,7 @@ class ByteSize implements Comparable {
 
     // Get the index of the first non-digit character
     String c,
-        tempS = _StripAllWhiteSpace(value); // Protect against leading spaces
+        tempS = value.replaceAll(' ', ''); // Protect against whitespaces
     bool found = false;
 
     // Pick first non-digit number
