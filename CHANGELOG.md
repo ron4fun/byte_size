@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Added the copy, toJson and fromJson methods
+
 ## 1.3.4
 
 - Updated version

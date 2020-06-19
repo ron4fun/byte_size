@@ -137,7 +137,7 @@ class ByteSize implements Comparable {
   /// Returns the size in PetaBytes
   num get PetaBytes => _PetaBytes;
 
-  String _LargestWholeNumberSymbol() {
+  String _largestWholeNumberSymbol() {
     // Absolute value is used to deal with negative values
     if (PetaBytes.abs() >= 1) {
       return _PetaByteSymbol;
@@ -153,9 +153,9 @@ class ByteSize implements Comparable {
       return _ByteSymbol;
     }
     return _BitSymbol;
-  } // end function LargestWholeNumberSymbol
+  } // end function largestWholeNumberSymbol
 
-  num _LargestWholeNumberValue() {
+  num _largestWholeNumberValue() {
     // Absolute value is used to deal with negative values
     if (PetaBytes.abs() >= 1) {
       return PetaBytes;
@@ -171,7 +171,7 @@ class ByteSize implements Comparable {
       return Bytes;
     }
     return Bits;
-  } // end function LargestWholeNumberValue
+  } // end function largestWholeNumberValue
 
   /// Returns a ByteSize object initialized by size in Bits.
   ///
@@ -238,39 +238,115 @@ class ByteSize implements Comparable {
   int compareTo(dynamic bs) =>
       Bits.compareTo(bs.Bits); // end function compareTo
 
+  /// Returns an exact copy of the ByteSize object
+  ByteSize copy() => ByteSize(_Bytes); // end function copy
+
+  void _clone(ByteSize bs) {
+    if (bs == null) {
+      throw ArgumentNullException('Null object passed');
+    }
+
+    _Bits = bs.Bits;
+    _Bytes = bs.Bytes;
+    _KiloBytes = bs.KiloBytes;
+    _MegaBytes = bs.MegaBytes;
+    _GigaBytes = bs.GigaBytes;
+    _TeraBytes = bs.TeraBytes;
+    _PetaBytes = bs.PetaBytes;
+  } // end function _clone
+
+  /// Converts ByteSize object to JSON object
+  Map<String, Object> toJson() {
+    Map<String, Object> entityMap = {};
+    entityMap[_BitSymbol] = Bits.toString();
+    entityMap[_ByteSymbol] = Bytes.toStringAsFixed(20);
+    entityMap[_KiloByteSymbol] = KiloBytes.toStringAsFixed(20);
+    entityMap[_MegaByteSymbol] = MegaBytes.toStringAsFixed(20);
+    entityMap[_GigaByteSymbol] = GigaBytes.toStringAsFixed(20);
+    entityMap[_TeraByteSymbol] = TeraBytes.toStringAsFixed(20);
+    entityMap[_PetaByteSymbol] = PetaBytes.toStringAsFixed(20);
+    return entityMap;
+  } // end function toJson
+
+  /// Initialize ByteSize object from JSON object
+  /// according to order of precedence i.e from 'b' -> 'PB',
+  /// where 'b' has higher precedence to 'KB' and 'MB' has higher
+  /// precedence to 'GB' and so on.
+  void fromJson(Map<String, Object> entityMap) {
+    ByteSize bs;
+
+    try {
+      if (entityMap.containsKey(_BitSymbol)) {
+        bs = FromBits(entityMap[_BitSymbol] is String
+            ? int.parse(entityMap[_BitSymbol])
+            : entityMap[_BitSymbol]);
+      } else if (entityMap.containsKey(_ByteSymbol)) {
+        bs = FromBytes(entityMap[_ByteSymbol] is String
+            ? num.parse(entityMap[_ByteSymbol])
+            : entityMap[_ByteSymbol]);
+      } else if (entityMap.containsKey(_KiloByteSymbol)) {
+        bs = FromKiloBytes(entityMap[_KiloByteSymbol] is String
+            ? num.parse(entityMap[_KiloByteSymbol])
+            : entityMap[_KiloByteSymbol]);
+      } else if (entityMap.containsKey(_MegaByteSymbol)) {
+        bs = FromMegaBytes(entityMap[_MegaByteSymbol] is String
+            ? num.parse(entityMap[_MegaByteSymbol])
+            : entityMap[_MegaByteSymbol]);
+      } else if (entityMap.containsKey(_GigaByteSymbol)) {
+        bs = FromGigaBytes(entityMap[_GigaByteSymbol] is String
+            ? num.parse(entityMap[_GigaByteSymbol])
+            : entityMap[_GigaByteSymbol]);
+      } else if (entityMap.containsKey(_TeraByteSymbol)) {
+        bs = FromTeraBytes(entityMap[_TeraByteSymbol] is String
+            ? num.parse(entityMap[_TeraByteSymbol])
+            : entityMap[_TeraByteSymbol]);
+      } else if (entityMap.containsKey(_PetaByteSymbol)) {
+        bs = FromPetaBytes(entityMap[_PetaByteSymbol] is String
+            ? num.parse(entityMap[_PetaByteSymbol])
+            : entityMap[_PetaByteSymbol]);
+      } else {
+        throw Exception;
+      }
+
+      this._clone(bs);
+    } on Exception {
+      throw FormatException('Json object not in correct format');
+    }
+  } // end function fromJson
+
   /// Returns the sum of two ByteSize objects.
-  ByteSize Add(ByteSize bs) => ByteSize(Bytes + bs.Bytes); // end function Add
+  ByteSize add(ByteSize bs) => ByteSize(Bytes + bs.Bytes); // end function add
 
   /// Returns the sum of size in Bits and current ByteSize instance.
-  ByteSize AddBits(int value) => this + FromBits(value); // end function AddBits
+  ByteSize addBits(int value) => this + FromBits(value); // end function addBits
 
   /// Returns the sum of size in Bytes and current ByteSize instance.
-  ByteSize AddBytes(num value) =>
-      this + FromBytes(value); // end function AddBytes
+  ByteSize addBytes(num value) =>
+      this + FromBytes(value); // end function addBytes
 
   /// Returns the sum of size in KiloBytes and current ByteSize instance.
-  ByteSize AddKiloBytes(num value) =>
-      this + FromKiloBytes(value); // end function AddKiloBytes
+  ByteSize addKiloBytes(num value) =>
+      this + FromKiloBytes(value); // end function addKiloBytes
 
   /// Returns the sum of size in MegaBytes and current ByteSize instance.
-  ByteSize AddMegaBytes(num value) =>
-      this + FromMegaBytes(value); // end function AddMegaBytes
+  ByteSize addMegaBytes(num value) =>
+      this + FromMegaBytes(value); // end function addMegaBytes
 
   /// Returns the sum of size in GigaBytes and current ByteSize instance.
-  ByteSize AddGigaBytes(num value) =>
-      this + FromGigaBytes(value); // end function AddGigaBytes
+  ByteSize addGigaBytes(num value) =>
+      this + FromGigaBytes(value); // end function addGigaBytes
 
   /// Returns the sum of size in TeraBytes and current ByteSize instance.
-  ByteSize AddTeraBytes(num value) =>
-      this + FromTeraBytes(value); // end function AddTeraBytes
+  ByteSize addTeraBytes(num value) =>
+      this + FromTeraBytes(value); // end function addTeraBytes
 
   /// Returns the sum of size in PetaBytes and current ByteSize instance.
-  ByteSize AddPetaBytes(num value) =>
-      this + FromPetaBytes(value); // end function AddPetaBytes
+  ByteSize addPetaBytes(num value) =>
+      this + FromPetaBytes(value); // end function addPetaBytes
 
   /// Returns the difference of two ByteSize objects.
-  ByteSize Subtract(ByteSize bs) =>
-      ByteSize(Bytes - bs.Bytes); // end function Subtract
+  ByteSize subtract(ByteSize bs) =>
+      ByteSize(Bytes - bs.Bytes); // end function subtract
 
   /// Returns if current ByteSize instance is less than another.
   bool operator <(ByteSize bs) => Bits < bs.Bits;
@@ -292,10 +368,10 @@ class ByteSize implements Comparable {
   }
 
   /// Returns the sum of two ByteSize objects.
-  ByteSize operator +(ByteSize bs) => Add(bs);
+  ByteSize operator +(ByteSize bs) => add(bs);
 
   /// Returns the difference of two ByteSize objects.
-  ByteSize operator -(ByteSize bs) => Subtract(bs);
+  ByteSize operator -(ByteSize bs) => subtract(bs);
 
   /// Returns the string representation of the ByteSize instance
   /// i.e passing the [symbol], [precision] and or [locale_LANG] as arguments.
@@ -304,38 +380,39 @@ class ByteSize implements Comparable {
   /// var size = ByteSize.FromKiloBytes(10000);
   /// print(size.ToString('MB', 1, Locale.fr_CA)); // 9,8 MB
   /// ```
-  String ToString(
+  @override
+  String toString(
       [String symbol = 'KB',
       int precision = 2,
       Locale locale_LANG = Locale.en_US]) {
     symbol = symbol.replaceAll(' ', '');
 
     if (symbol.contains('PB')) {
-      return '${_output(PetaBytes, precision, locale_LANG)} $symbol';
+      return '${_Output(PetaBytes, precision, locale_LANG)} $symbol';
     } else if (symbol.contains('TB')) {
-      return '${_output(TeraBytes, precision, locale_LANG)} $symbol';
+      return '${_Output(TeraBytes, precision, locale_LANG)} $symbol';
     } else if (symbol.contains('GB')) {
-      return '${_output(GigaBytes, precision, locale_LANG)} $symbol';
+      return '${_Output(GigaBytes, precision, locale_LANG)} $symbol';
     } else if (symbol.contains('MB')) {
-      return '${_output(MegaBytes, precision, locale_LANG)} $symbol';
+      return '${_Output(MegaBytes, precision, locale_LANG)} $symbol';
     } else if (symbol.contains('KB')) {
-      return '${_output(KiloBytes, precision, locale_LANG)} $symbol';
+      return '${_Output(KiloBytes, precision, locale_LANG)} $symbol';
     } else if (symbol.contains(_ByteSymbol)) {
-      return '${_output(Bytes, precision, locale_LANG)} $symbol';
+      return '${_Output(Bytes, precision, locale_LANG)} $symbol';
     } else if (symbol.contains(_BitSymbol)) {
-      return '${_output(Bits.toDouble(), precision, locale_LANG)} $symbol';
+      return '${_Output(Bits.toDouble(), precision, locale_LANG)} $symbol';
     }
-    return '${_output(_LargestWholeNumberValue(), precision, locale_LANG)} ${_LargestWholeNumberSymbol()}';
-  } // end function ToString
+    return '${_Output(_largestWholeNumberValue(), precision, locale_LANG)} ${_largestWholeNumberSymbol()}';
+  } // end function toString
 
-  static String _output(num digits, int precision, locale) {
+  static String _Output(num digits, int precision, locale) {
     try {
       var format = NumberFormat.decimalPattern('$locale');
       return format.format(double.parse(digits.toStringAsFixed(precision)));
     } on Exception {
       throw FormatException('locale language not in the correct format');
     }
-  } // end function _output
+  } // end function _Output
 
   static double _FloatingMod(double a, double b) =>
       a - b * (a ~/ b); // end function _FloatingMod
@@ -443,10 +520,10 @@ class ByteSize implements Comparable {
   /// ```
   static ByteSize Parse(String value) {
     ParseOutput output = TryParse(value);
-    if (output.IsExceptionThrown == true) {
+    if (output.isExceptionThrown == true) {
       throw FormatException('Value is not in the correct format');
     }
-    return output.ByteSizeObj;
+    return output.byteSizeObj;
   } // end function Parse
 
 } // end class ByteSize
@@ -454,10 +531,10 @@ class ByteSize implements Comparable {
 /// It is the object returned by the TryParse static method of ByteSize class.
 class ParseOutput {
   /// It is the ByteSize object that is returned.
-  final ByteSize ByteSizeObj;
+  final ByteSize byteSizeObj;
 
   /// It denotes whether an exception was hit when parsing the argument.
-  final bool IsExceptionThrown;
+  final bool isExceptionThrown;
 
-  ParseOutput(this.IsExceptionThrown, this.ByteSizeObj);
+  ParseOutput(this.isExceptionThrown, this.byteSizeObj);
 } // end class ParseOutput

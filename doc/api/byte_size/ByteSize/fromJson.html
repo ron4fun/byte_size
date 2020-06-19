@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the operator == method from the ByteSize class, for the Dart programming language.">
-  <title>operator == method - ByteSize class - byte_size library - Dart API</title>
+  <meta name="description" content="API docs for the fromJson method from the ByteSize class, for the Dart programming language.">
+  <title>fromJson method - ByteSize class - byte_size library - Dart API</title>
 
   
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
@@ -27,9 +27,9 @@
     <li><a href="../../index.html">byte_size</a></li>
     <li><a href="../../byte_size/byte_size-library.html">byte_size</a></li>
     <li><a href="../../byte_size/ByteSize-class.html">ByteSize</a></li>
-    <li class="self-crumb">operator == method</li>
+    <li class="self-crumb">fromJson method</li>
   </ol>
-  <div class="self-name">operator ==</div>
+  <div class="self-name">fromJson</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="../../index.html">byte_size</a></li>
       <li><a href="../../byte_size/byte_size-library.html">byte_size</a></li>
       <li><a href="../../byte_size/ByteSize-class.html">ByteSize</a></li>
-      <li class="self-crumb">operator == method</li>
+      <li class="self-crumb">fromJson method</li>
     </ol>
     
     <h5>ByteSize class</h5>
@@ -116,30 +116,64 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">operator ==</span> method</h1></div>
+      <div><h1><span class="kind-method">fromJson</span> method</h1></div>
 
     <section class="multi-line-signature">
-      <div>
-        <ol class="annotation-list">
-          <li>@override</li>
-        </ol>
-      </div>
-      <span class="returntype">bool</span>
-            <span class="name ">operator ==</span>
-(<wbr><ol class="parameter-list"><li><span class="parameter" id="==-param-bs"><span class="type-annotation">dynamic</span> <span class="parameter-name">bs</span></span></li>
+      <span class="returntype">void</span>
+            <span class="name ">fromJson</span>
+(<wbr><ol class="parameter-list"><li><span class="parameter" id="fromJson-param-entityMap"><span class="type-annotation">Map<span class="signature">&lt;<wbr><span class="type-parameter">String</span>, <span class="type-parameter">Object</span>&gt;</span></span> <span class="parameter-name">entityMap</span></span></li>
 </ol>)
-      <div class="features">override</div>
+      
     </section>
     <section class="desc markdown">
-      <p>Returns if current ByteSize instance is equal to another.</p>
+      <p>Initialize ByteSize object from JSON object
+according to order of precedence i.e from 'b' -&gt; 'PB',
+where 'b' has higher precedence to 'KB' and 'MB' has higher
+precedence to 'GB' and so on.</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">@override
-bool operator ==(dynamic bs) {
-  if (bs is ByteSize) return Bits == bs.Bits;
-  return false;
+      <pre class="language-dart"><code class="language-dart">void fromJson(Map&lt;String, Object&gt; entityMap) {
+  ByteSize bs;
+
+  try {
+    if (entityMap.containsKey(_BitSymbol)) {
+      bs = FromBits(entityMap[_BitSymbol] is String
+          ? int.parse(entityMap[_BitSymbol])
+          : entityMap[_BitSymbol]);
+    } else if (entityMap.containsKey(_ByteSymbol)) {
+      bs = FromBytes(entityMap[_ByteSymbol] is String
+          ? num.parse(entityMap[_ByteSymbol])
+          : entityMap[_ByteSymbol]);
+    } else if (entityMap.containsKey(_KiloByteSymbol)) {
+      bs = FromKiloBytes(entityMap[_KiloByteSymbol] is String
+          ? num.parse(entityMap[_KiloByteSymbol])
+          : entityMap[_KiloByteSymbol]);
+    } else if (entityMap.containsKey(_MegaByteSymbol)) {
+      bs = FromMegaBytes(entityMap[_MegaByteSymbol] is String
+          ? num.parse(entityMap[_MegaByteSymbol])
+          : entityMap[_MegaByteSymbol]);
+    } else if (entityMap.containsKey(_GigaByteSymbol)) {
+      bs = FromGigaBytes(entityMap[_GigaByteSymbol] is String
+          ? num.parse(entityMap[_GigaByteSymbol])
+          : entityMap[_GigaByteSymbol]);
+    } else if (entityMap.containsKey(_TeraByteSymbol)) {
+      bs = FromTeraBytes(entityMap[_TeraByteSymbol] is String
+          ? num.parse(entityMap[_TeraByteSymbol])
+          : entityMap[_TeraByteSymbol]);
+    } else if (entityMap.containsKey(_PetaByteSymbol)) {
+      bs = FromPetaBytes(entityMap[_PetaByteSymbol] is String
+          ? num.parse(entityMap[_PetaByteSymbol])
+          : entityMap[_PetaByteSymbol]);
+    } else {
+      throw Exception;
+    }
+
+    this._clone(bs);
+  } on Exception {
+    throw FormatException(&#39;Json object not in correct format&#39;);
+  }
 }</code></pre>
     </section>
 

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the operator == method from the ByteSize class, for the Dart programming language.">
-  <title>operator == method - ByteSize class - byte_size library - Dart API</title>
+  <meta name="description" content="API docs for the copy method from the ByteSize class, for the Dart programming language.">
+  <title>copy method - ByteSize class - byte_size library - Dart API</title>
 
   
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
@@ -27,9 +27,9 @@
     <li><a href="../../index.html">byte_size</a></li>
     <li><a href="../../byte_size/byte_size-library.html">byte_size</a></li>
     <li><a href="../../byte_size/ByteSize-class.html">ByteSize</a></li>
-    <li class="self-crumb">operator == method</li>
+    <li class="self-crumb">copy method</li>
   </ol>
-  <div class="self-name">operator ==</div>
+  <div class="self-name">copy</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="../../index.html">byte_size</a></li>
       <li><a href="../../byte_size/byte_size-library.html">byte_size</a></li>
       <li><a href="../../byte_size/ByteSize-class.html">ByteSize</a></li>
-      <li class="self-crumb">operator == method</li>
+      <li class="self-crumb">copy method</li>
     </ol>
     
     <h5>ByteSize class</h5>
@@ -116,31 +116,21 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">operator ==</span> method</h1></div>
+      <div><h1><span class="kind-method">copy</span> method</h1></div>
 
     <section class="multi-line-signature">
-      <div>
-        <ol class="annotation-list">
-          <li>@override</li>
-        </ol>
-      </div>
-      <span class="returntype">bool</span>
-            <span class="name ">operator ==</span>
-(<wbr><ol class="parameter-list"><li><span class="parameter" id="==-param-bs"><span class="type-annotation">dynamic</span> <span class="parameter-name">bs</span></span></li>
-</ol>)
-      <div class="features">override</div>
+      <span class="returntype"><a href="../../byte_size/ByteSize-class.html">ByteSize</a></span>
+            <span class="name ">copy</span>
+(<wbr>)
+      
     </section>
     <section class="desc markdown">
-      <p>Returns if current ByteSize instance is equal to another.</p>
+      <p>Returns an exact copy of the ByteSize object</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">@override
-bool operator ==(dynamic bs) {
-  if (bs is ByteSize) return Bits == bs.Bits;
-  return false;
-}</code></pre>
+      <pre class="language-dart"><code class="language-dart">ByteSize copy() =&gt; ByteSize(_Bytes);</code></pre>
     </section>
 
   </div> <!-- /.main-content -->
