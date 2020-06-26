@@ -272,7 +272,7 @@ class ByteSize implements Comparable {
   /// according to order of precedence i.e from 'b' -> 'PB',
   /// where 'b' has higher precedence to 'KB' and 'MB' has higher
   /// precedence to 'GB' and so on.
-  void fromJson(Map<String, Object> entityMap) {
+  ByteSize.fromJson(Map<String, Object> entityMap) {
     ByteSize bs;
 
     try {
@@ -308,7 +308,7 @@ class ByteSize implements Comparable {
         throw Exception;
       }
 
-      this._clone(bs);
+      _clone(bs);
     } on Exception {
       throw FormatException('Json object not in correct format');
     }

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="API docs for the FromGigaBytes method from the ByteSize class, for the Dart programming language.">
-  <title>FromGigaBytes method - ByteSize class - byte_size library - Dart API</title>
+  <meta name="description" content="API docs for the ByteSize.fromJson constructor from the Class ByteSize class from the byte_size library, for the Dart programming language.">
+  <title>ByteSize.fromJson constructor - ByteSize class - byte_size library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
   <base href="../..">
 
@@ -33,9 +33,9 @@
             <li><a href="index.html">byte_size</a></li>
             <li><a href="byte_size/byte_size-library.html">byte_size</a></li>
             <li><a href="byte_size/ByteSize-class.html">ByteSize</a></li>
-            <li class="self-crumb">FromGigaBytes</li>
+            <li class="self-crumb">ByteSize.fromJson</li>
           </ol>
-          <div class="self-name">FromGigaBytes</div>
+          <div class="self-name">ByteSize.fromJson</div>
           <form class="search navbar-right" role="search">
             <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
           </form>
@@ -51,15 +51,15 @@
           <li><a href="index.html">byte_size</a></li>
           <li><a href="byte_size/byte_size-library.html">byte_size</a></li>
           <li><a href="byte_size/ByteSize-class.html">ByteSize</a></li>
-          <li class="self-crumb">FromGigaBytes</li>
+          <li class="self-crumb">ByteSize.fromJson</li>
         </ol>
         <div class="title-description">
           <h1 class="title">
-            <span class="kind">method</span> FromGigaBytes
+            <span class="kind">constructor</span> ByteSize.fromJson
           </h1>
         </div>
         <ul class="subnav">
-          <li><a href="byte_size/ByteSize/FromGigaBytes.html#source">Source</a></li>
+          <li><a href="byte_size/ByteSize/ByteSize.fromJson.html#source">Source</a></li>
         </ul>
       </div> <!-- /col -->
     </div> <!-- /row -->
@@ -71,6 +71,7 @@
   <div class="row">
 
   <div class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+
     <h5><a href="index.html">byte_size</a></h5>
     <h5><a href="byte_size/byte_size-library.html">byte_size</a></h5>
     <h5><a href="byte_size/ByteSize-class.html">ByteSize</a></h5>
@@ -134,23 +135,64 @@
       <li class="inherited"><a href="byte_size/ByteSize/noSuchMethod.html">noSuchMethod</a></li>
     </ol>
 
-  </div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-left-->
 
   <div class="col-xs-12 col-sm-9 col-md-8 main-content">
     <section class="multi-line-signature">
-      <span class="returntype"><a href="byte_size/ByteSize-class.html">ByteSize</a></span>
-      <span class="name ">FromGigaBytes</span>(<wbr><span class="parameter" id="FromGigaBytes-param-value"><span class="type-annotation">num</span> <span class="parameter-name">value</span></span>)
+      
+            <span class="name ">ByteSize.fromJson</span>(<wbr><span class="parameter" id="fromJson-param-entityMap"><span class="type-annotation">Map&lt;String, Object&gt;</span> <span class="parameter-name">entityMap</span></span>)
     </section>
+
     <section class="desc markdown">
-      <p>Returns a ByteSize object initialized by size in GigaBytes.</p>
-<pre class="language-dart prettyprint"><code class="language-dart">var size = ByteSize.FromGigaBytes(10);
-</code></pre>
+      <p>Initialize ByteSize object from JSON object
+according to order of precedence i.e from 'b' -&gt; 'PB',
+where 'b' has higher precedence to 'KB' and 'MB' has higher
+precedence to 'GB' and so on.</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Source</span> </h2>
-      <pre class="prettyprint language-dart">static ByteSize FromGigaBytes(num value) =&gt;
-    ByteSize(value * _BytesInGigaByte);</pre>
+      <pre class="prettyprint language-dart">ByteSize.fromJson(Map&lt;String, Object&gt; entityMap) {
+  ByteSize bs;
+
+  try {
+    if (entityMap.containsKey(_BitSymbol)) {
+      bs = FromBits(entityMap[_BitSymbol] is String
+          ? int.parse(entityMap[_BitSymbol])
+          : entityMap[_BitSymbol]);
+    } else if (entityMap.containsKey(_ByteSymbol)) {
+      bs = FromBytes(entityMap[_ByteSymbol] is String
+          ? num.parse(entityMap[_ByteSymbol])
+          : entityMap[_ByteSymbol]);
+    } else if (entityMap.containsKey(_KiloByteSymbol)) {
+      bs = FromKiloBytes(entityMap[_KiloByteSymbol] is String
+          ? num.parse(entityMap[_KiloByteSymbol])
+          : entityMap[_KiloByteSymbol]);
+    } else if (entityMap.containsKey(_MegaByteSymbol)) {
+      bs = FromMegaBytes(entityMap[_MegaByteSymbol] is String
+          ? num.parse(entityMap[_MegaByteSymbol])
+          : entityMap[_MegaByteSymbol]);
+    } else if (entityMap.containsKey(_GigaByteSymbol)) {
+      bs = FromGigaBytes(entityMap[_GigaByteSymbol] is String
+          ? num.parse(entityMap[_GigaByteSymbol])
+          : entityMap[_GigaByteSymbol]);
+    } else if (entityMap.containsKey(_TeraByteSymbol)) {
+      bs = FromTeraBytes(entityMap[_TeraByteSymbol] is String
+          ? num.parse(entityMap[_TeraByteSymbol])
+          : entityMap[_TeraByteSymbol]);
+    } else if (entityMap.containsKey(_PetaByteSymbol)) {
+      bs = FromPetaBytes(entityMap[_PetaByteSymbol] is String
+          ? num.parse(entityMap[_PetaByteSymbol])
+          : entityMap[_PetaByteSymbol]);
+    } else {
+      throw Exception;
+    }
+
+    _clone(bs);
+  } on Exception {
+    throw FormatException(&#39;Json object not in correct format&#39;);
+  }
+}</pre>
     </section>
 
   </div> <!-- /.main-content -->

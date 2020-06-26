@@ -1,3 +1,9 @@
+## 1.4.1
+
+- Change fromJson methods to a constructor
+
+- Updated the documentation
+
 ## 1.4.0
 
 - Added the copy, toJson and fromJson methods

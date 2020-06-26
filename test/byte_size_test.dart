@@ -615,8 +615,7 @@ void main() {
 
     test('fromJson', () {
       final json = {'B': 1024, 'KB': 1}; // 1024 Bytes == 1KB
-      ByteSize bs = ByteSize();
-      bs.fromJson(json);
+      ByteSize bs = ByteSize.fromJson(json);
 
       expect(json['B'], equals(bs.Bytes));
       expect(json['KB'], equals(bs.KiloBytes));
@@ -624,14 +623,14 @@ void main() {
 
       // Taking Precedence into consideration
       final json2 = {'KB': '1024', 'B': '10000', 'GB': '20'};
-      bs.fromJson(json2);
+      bs = ByteSize.fromJson(json2);
 
       expect(double.parse(json2['B']) == bs.Bytes, isTrue);
       expect(double.parse(json2['KB']) == bs.KiloBytes, isFalse);
       expect(double.parse(json2['GB']) == bs.GigaBytes, isFalse);
 
       final json3 = {'KB': '1024', 'GB': '20'};
-      bs.fromJson(json3);
+      bs = ByteSize.fromJson(json3);
 
       expect(double.parse(json2['KB']) == bs.KiloBytes, isTrue);
       expect(double.parse(json2['GB']) == bs.GigaBytes, isFalse);
