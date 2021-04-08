@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Migrated package to null safety
+
 ## 1.4.1
 
 - Change fromJson methods to a constructor

@@ -19,19 +19,21 @@ Copyright (c) 2020 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
     3. This notice must not be removed or altered from any source distribution.
 */
 
-import 'package:locales/locales.dart';
-import 'package:intl/intl.dart';
 import 'dart:core';
+
+import 'package:intl/intl.dart';
 
 /// This exception indicates that there exist an issue with the argument passed.
 class FormatException implements Exception {
   String cause;
+
   FormatException(this.cause);
 } // end class FormatException
 
 /// This exception indicates that the argument passed is null.
 class ArgumentNullException implements Exception {
   String cause;
+
   ArgumentNullException(this.cause);
 } // end class ArgumentNullException
 
@@ -89,13 +91,13 @@ class ByteSize implements Comparable {
     'pb'
   ];
 
-  int _Bits;
-  num _Bytes;
-  num _KiloBytes;
-  num _MegaBytes;
-  num _GigaBytes;
-  num _TeraBytes;
-  num _PetaBytes;
+  late int _Bits;
+  late num _Bytes;
+  late num _KiloBytes;
+  late num _MegaBytes;
+  late num _GigaBytes;
+  late num _TeraBytes;
+  late num _PetaBytes;
 
   /// Initialize class with the size in Bytes denoted by [byteSize].
   ///
@@ -103,7 +105,7 @@ class ByteSize implements Comparable {
   /// var size = new ByteSize(1024);
   /// ```
   ByteSize([num byteSize = 0]) {
-    double tempDouble = byteSize * _BitsInByte.toDouble();
+    var tempDouble = byteSize * _BitsInByte.toDouble();
 
     // Get Truncation because bits are whole units
     _Bits = tempDouble.toInt();
@@ -241,7 +243,7 @@ class ByteSize implements Comparable {
   /// Returns an exact copy of the ByteSize object
   ByteSize copy() => ByteSize(_Bytes); // end function copy
 
-  void _clone(ByteSize bs) {
+  void _clone(ByteSize? bs) {
     if (bs == null) {
       throw ArgumentNullException('Null object passed');
     }
@@ -257,7 +259,7 @@ class ByteSize implements Comparable {
 
   /// Converts ByteSize object to JSON object
   Map<String, Object> toJson() {
-    Map<String, Object> entityMap = {};
+    var entityMap = <String, Object>{};
     entityMap[_BitSymbol] = Bits.toString();
     entityMap[_ByteSymbol] = Bytes.toStringAsFixed(20);
     entityMap[_KiloByteSymbol] = KiloBytes.toStringAsFixed(20);
@@ -278,32 +280,32 @@ class ByteSize implements Comparable {
     try {
       if (entityMap.containsKey(_BitSymbol)) {
         bs = FromBits(entityMap[_BitSymbol] is String
-            ? int.parse(entityMap[_BitSymbol])
-            : entityMap[_BitSymbol]);
+            ? int.parse(entityMap[_BitSymbol] as String)
+            : entityMap[_BitSymbol] as int);
       } else if (entityMap.containsKey(_ByteSymbol)) {
         bs = FromBytes(entityMap[_ByteSymbol] is String
-            ? num.parse(entityMap[_ByteSymbol])
-            : entityMap[_ByteSymbol]);
+            ? num.parse(entityMap[_ByteSymbol] as String)
+            : entityMap[_ByteSymbol] as int);
       } else if (entityMap.containsKey(_KiloByteSymbol)) {
         bs = FromKiloBytes(entityMap[_KiloByteSymbol] is String
-            ? num.parse(entityMap[_KiloByteSymbol])
-            : entityMap[_KiloByteSymbol]);
+            ? num.parse(entityMap[_KiloByteSymbol] as String)
+            : entityMap[_KiloByteSymbol] as int);
       } else if (entityMap.containsKey(_MegaByteSymbol)) {
         bs = FromMegaBytes(entityMap[_MegaByteSymbol] is String
-            ? num.parse(entityMap[_MegaByteSymbol])
-            : entityMap[_MegaByteSymbol]);
+            ? num.parse(entityMap[_MegaByteSymbol] as String)
+            : entityMap[_MegaByteSymbol] as int);
       } else if (entityMap.containsKey(_GigaByteSymbol)) {
         bs = FromGigaBytes(entityMap[_GigaByteSymbol] is String
-            ? num.parse(entityMap[_GigaByteSymbol])
-            : entityMap[_GigaByteSymbol]);
+            ? num.parse(entityMap[_GigaByteSymbol] as String)
+            : entityMap[_GigaByteSymbol] as int);
       } else if (entityMap.containsKey(_TeraByteSymbol)) {
         bs = FromTeraBytes(entityMap[_TeraByteSymbol] is String
-            ? num.parse(entityMap[_TeraByteSymbol])
-            : entityMap[_TeraByteSymbol]);
+            ? num.parse(entityMap[_TeraByteSymbol] as String)
+            : entityMap[_TeraByteSymbol] as int);
       } else if (entityMap.containsKey(_PetaByteSymbol)) {
         bs = FromPetaBytes(entityMap[_PetaByteSymbol] is String
-            ? num.parse(entityMap[_PetaByteSymbol])
-            : entityMap[_PetaByteSymbol]);
+            ? num.parse(entityMap[_PetaByteSymbol] as String)
+            : entityMap[_PetaByteSymbol] as int);
       } else {
         throw Exception;
       }
@@ -382,9 +384,7 @@ class ByteSize implements Comparable {
   /// ```
   @override
   String toString(
-      [String symbol = 'KB',
-      int precision = 2,
-      Locale locale_LANG = Locale.en_US]) {
+      [String symbol = 'KB', int precision = 2, String locale_LANG = 'en_US']) {
     symbol = symbol.replaceAll(' ', '');
 
     if (symbol.contains('PB')) {
@@ -407,7 +407,7 @@ class ByteSize implements Comparable {
 
   static String _Output(num digits, int precision, locale) {
     try {
-      var format = NumberFormat.decimalPattern('$locale');
+      var format = NumberFormat.decimalPattern(locale);
       return format.format(double.parse(digits.toStringAsFixed(precision)));
     } on Exception {
       throw FormatException('locale language not in the correct format');
@@ -417,8 +417,7 @@ class ByteSize implements Comparable {
   static double _FloatingMod(double a, double b) =>
       a - b * (a ~/ b); // end function _FloatingMod
 
-  static bool _IsNullOrWhiteSpace(String txt) =>
-      txt == null ? true : txt.trim().isEmpty;
+  static bool _IsNullOrWhiteSpace(String txt) => txt.trim().isEmpty;
 
   /// Returns the minimum possible ByteSize objects.
   static ByteSize GetMinValue() => FromBits(0);
@@ -441,11 +440,11 @@ class ByteSize implements Comparable {
 
     // Get the index of the first non-digit character
     String c, tempS = value.replaceAll(' ', ''); // Protect against whitespaces
-    bool found = false;
+    var found = false;
 
     // Pick first non-digit number
-    int num = 1;
-    for (int i = 0; i < tempS.length; i++) {
+    var num = 1;
+    for (var i = 0; i < tempS.length; i++) {
       c = tempS[i];
       if (!(_NumArray.contains(c) || c == '.')) {
         found = true;
@@ -459,11 +458,11 @@ class ByteSize implements Comparable {
       return ParseOutput(true, ByteSize());
     }
 
-    int lastNumber = num - 1;
+    var lastNumber = num - 1;
 
     // Cut the input string in half
-    String numberPart = tempS.substring(0, lastNumber).trim();
-    String sizePart = tempS.substring(lastNumber).trim();
+    var numberPart = tempS.substring(0, lastNumber).trim();
+    var sizePart = tempS.substring(lastNumber).trim();
 
     // Get the numeric part
     double number;
@@ -482,7 +481,7 @@ class ByteSize implements Comparable {
     }
 
     if (tempInt == 0) {
-      double d1 = 1 * 1.0;
+      var d1 = 1 * 1.0;
       if (_FloatingMod(number, d1) != 0) {
         // Can't have partial bits
         return ParseOutput(true, ByteSize());
@@ -519,7 +518,7 @@ class ByteSize implements Comparable {
   /// ByteSize.Parse('1024MB') == ByteSize.FromMegaBytes(1024);
   /// ```
   static ByteSize Parse(String value) {
-    ParseOutput output = TryParse(value);
+    var output = TryParse(value);
     if (output.isExceptionThrown == true) {
       throw FormatException('Value is not in the correct format');
     }
