@@ -12,7 +12,7 @@ import 'package:locales/locales.dart';
 import 'dart:convert';
 
 void main() {
-  var size = ByteSize.FromKiloBytes(10000);
+    var size = ByteSize.FromKiloBytes(10000);
     print(size.toString('MB', 3, Locale.fr_CA)); // 9,766 MB
   
     var json = size.toJson();
