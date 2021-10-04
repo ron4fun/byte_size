@@ -1,13 +1,13 @@
+import 'dart:convert';
+
 import 'package:byte_size/byte_size.dart';
 import 'package:intl/intl.dart';
-import 'package:locales/locales.dart';
 import 'package:test/test.dart';
-import 'dart:convert';
 
 void main() {
   String formatOutputLocale(
-      num digits, int precision, String symbol, Locale locale_LANG) {
-    var format = NumberFormat.decimalPattern('${locale_LANG}');
+      num digits, int precision, String symbol, String locale_LANG) {
+    var format = NumberFormat.decimalPattern(locale_LANG);
     return '${format.format(double.parse(digits.toStringAsFixed(precision)))} $symbol';
   } // end function formatOutputLocale
 
@@ -356,7 +356,7 @@ void main() {
 
       // Act
       final result = b.toString();
-      final expected = formatOutputLocale(lDouble, 2, 'KB', Locale.en_US);
+      final expected = formatOutputLocale(lDouble, 2, 'KB', 'en_US');
 
       // Assert
       expect(expected, result);
@@ -370,7 +370,7 @@ void main() {
 
       // Act
       final result = b.toString('KB');
-      final expected = formatOutputLocale(lDouble, 2, 'KB', Locale.en_US);
+      final expected = formatOutputLocale(lDouble, 2, 'KB', 'en_US');
 
       // Assert
       expect(expected, result);
@@ -384,7 +384,7 @@ void main() {
 
       // Act
       final result = b.toString('KB', 4);
-      final expected = formatOutputLocale(lDouble, 4, 'KB', Locale.en_US);
+      final expected = formatOutputLocale(lDouble, 4, 'KB', 'en_US');
 
       // Assert
       expect(expected, result);
@@ -475,7 +475,7 @@ void main() {
 
       // Act
       final result = b.toString('TB');
-      final expected = formatOutputLocale(lDouble, 2, 'TB', Locale.en_US);
+      final expected = formatOutputLocale(lDouble, 2, 'TB', 'en_US');
 
       // Assert
       expect(expected, result);
@@ -497,7 +497,7 @@ void main() {
       final b = ByteSize.FromKiloBytes(10000);
 
       // Act
-      final result = b.toString('MB', 2, Locale.fr_CA);
+      final result = b.toString('MB', 2, 'fr_CA');
 
       // Assert
       expect('9,77 MB', result);
@@ -508,7 +508,7 @@ void main() {
       final b = ByteSize.FromKiloBytes(10000);
 
       // Act
-      final result = b.toString('MB', 1, Locale.de_DE);
+      final result = b.toString('MB', 1, 'de_DE');
 
       // Assert
       expect('9,8 MB', result);
@@ -521,8 +521,8 @@ void main() {
       final b = ByteSize.FromKiloBytes(10.5);
 
       // Act
-      final result = b.toString('KB', 1, Locale.de_DE);
-      final expected = formatOutputLocale(lDouble, 1, 'KB', Locale.de_DE);
+      final result = b.toString('KB', 1, 'de_DE');
+      final expected = formatOutputLocale(lDouble, 1, 'KB', 'de_DE');
 
       // Assert
       expect(expected, result);
@@ -533,7 +533,7 @@ void main() {
       final b = ByteSize.FromKiloBytes(10000);
 
       // Act
-      final result = b.toString('MB', 2, Locale.fr_CA);
+      final result = b.toString('MB', 2, 'fr_CA');
 
       // Assert
       expect('9,77 MB', result);
@@ -565,7 +565,7 @@ void main() {
     });
 
     test('CheckListSorting', () {
-      List<ByteSize> list_sizes = [b2, b3, b1];
+      var list_sizes = <ByteSize>[b2, b3, b1];
 
       assert(b1.compareTo(list_sizes[2]) == 0);
       assert(b2.compareTo(list_sizes[0]) == 0);
@@ -581,8 +581,8 @@ void main() {
 
   group('UtilityMethodTest', () {
     test('copy', () {
-      ByteSize val = ByteSize(1024);
-      ByteSize bs = val.copy();
+      ByteSize? val = ByteSize(1024);
+      var bs = val.copy();
 
       expect(bs, isNotNull);
       expect(bs.compareTo(val), equals(0));
@@ -615,7 +615,7 @@ void main() {
 
     test('fromJson', () {
       final json = {'B': 1024, 'KB': 1}; // 1024 Bytes == 1KB
-      ByteSize bs = ByteSize.fromJson(json);
+      var bs = ByteSize.fromJson(json);
 
       expect(json['B'], equals(bs.Bytes));
       expect(json['KB'], equals(bs.KiloBytes));
@@ -625,15 +625,15 @@ void main() {
       final json2 = {'KB': '1024', 'B': '10000', 'GB': '20'};
       bs = ByteSize.fromJson(json2);
 
-      expect(double.parse(json2['B']) == bs.Bytes, isTrue);
-      expect(double.parse(json2['KB']) == bs.KiloBytes, isFalse);
-      expect(double.parse(json2['GB']) == bs.GigaBytes, isFalse);
+      expect(double.parse(json2['B']!) == bs.Bytes, isTrue);
+      expect(double.parse(json2['KB']!) == bs.KiloBytes, isFalse);
+      expect(double.parse(json2['GB']!) == bs.GigaBytes, isFalse);
 
       final json3 = {'KB': '1024', 'GB': '20'};
       bs = ByteSize.fromJson(json3);
 
-      expect(double.parse(json2['KB']) == bs.KiloBytes, isTrue);
-      expect(double.parse(json2['GB']) == bs.GigaBytes, isFalse);
+      expect(double.parse(json2['KB']!) == bs.KiloBytes, isTrue);
+      expect(double.parse(json2['GB']!) == bs.GigaBytes, isFalse);
     });
   });
 }

@@ -1,8 +1,8 @@
 language: dart
 dart:
   - dev
-  # Install a specific stable release - 2.8.3
-  - "2.8.3"
+  # Install a specific stable release - 2.12.0
+  - "2.12.0"
 
 dart_task:
   - test: --platform vm
@@ -11,7 +11,7 @@ dart_task:
 
 env:
   global:
-    - TRAVIS_DART_VERSION=2.8.3
+    - TRAVIS_DART_VERSION=2.12.0
     - TRAVIS_DART_TEST=true
     - TRAVIS_DART_ANALYZE=false
     - TRAVIS_DART_FORMAT=false
