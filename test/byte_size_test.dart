@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'dart:convert';
 
 import 'package:byte_size/byte_size.dart';
@@ -10,6 +11,10 @@ void main() {
     var format = NumberFormat.decimalPattern(locale_LANG);
     return '${format.format(double.parse(digits.toStringAsFixed(precision)))} $symbol';
   } // end function formatOutputLocale
+
+  double formatDecimalPrecision(num digits, [int precision = 9]) {
+      return double.parse(digits.toStringAsFixed(precision));
+  } // end function _Output
 
   group('ArithmeticMethodsTest', () {
     final d2 = 2;
@@ -41,33 +46,70 @@ void main() {
       expect(i16, equals(size.Bits));
     });
 
-    test('AddKiloBytesMethod', () {
+     test('AddKibiBytesMethod', () {
       final d1 = 4 * 1024;
+      final d2 = 4;
+      final size = ByteSize.FromKibiBytes(2).addKibiBytes(2);
+
+      expect(4 * 1024 * 8, equals(size.Bits));
+      expect(d1, equals(size.Bytes));
+      expect(d2, equals(size.KibiBytes));
+    });
+
+    test('AddKiloBytesMethod', () {
+      final d1 = 4 * 1000;
       final d2 = 4;
       final size = ByteSize.FromKiloBytes(2).addKiloBytes(2);
 
-      expect(4 * 1024 * 8, equals(size.Bits));
+      expect(4 * 1000 * 8, equals(size.Bits));
       expect(d1, equals(size.Bytes));
       expect(d2, equals(size.KiloBytes));
     });
 
-    test('AddMegaBytesMethod', () {
+    test('AddMebiBytesMethod', () {
       final d1 = 4 * 1024 * 1024;
       final d2 = 4 * 1024;
       final d3 = 4;
-      final size = ByteSize.FromMegaBytes(2).addMegaBytes(2);
+      final size = ByteSize.FromMebiBytes(2).addMebiBytes(2);
 
       expect(4 * 1024 * 1024 * 8, equals(size.Bits));
+      expect(d1, equals(size.Bytes));
+      expect(d2, equals(size.KibiBytes));
+      expect(d3, equals(size.MebiBytes));
+    });
+    
+    test('AddMegaBytesMethod', () {
+      final d1 = 4 * 1000 * 1000;
+      final d2 = 4 * 1000;
+      final d3 = 4;
+      final size = ByteSize.FromMegaBytes(2).addMegaBytes(2);
+
+      expect(4 * 1000 * 1000 * 8, equals(size.Bits));
       expect(d1, equals(size.Bytes));
       expect(d2, equals(size.KiloBytes));
       expect(d3, equals(size.MegaBytes));
     });
 
-    test('AddGigaBytesMethod', () {
+    test('AddGibiBytesMethod', () {
       final d0 = 4.0 * 1024 * 1024 * 1024 * 8;
       final d1 = 4.0 * 1024 * 1024 * 1024;
       final d2 = 4.0 * 1024 * 1024;
       final d3 = 4.0 * 1024;
+      final d4 = 4.0;
+      final size = ByteSize.FromGibiBytes(2).addGibiBytes(2);
+
+      expect(d0, equals(size.Bits));
+      expect(d1, equals(size.Bytes));
+      expect(d2, equals(size.KibiBytes));
+      expect(d3, equals(size.MebiBytes));
+      expect(d4, equals(size.GibiBytes));
+    });
+    
+    test('AddGigaBytesMethod', () {
+      final d0 = 4.0 * 1000 * 1000 * 1000 * 8;
+      final d1 = 4.0 * 1000 * 1000 * 1000;
+      final d2 = 4.0 * 1000 * 1000;
+      final d3 = 4.0 * 1000;
       final d4 = 4.0;
       final size = ByteSize.FromGigaBytes(2).addGigaBytes(2);
 
@@ -78,12 +120,30 @@ void main() {
       expect(d4, equals(size.GigaBytes));
     });
 
-    test('AddTeraBytesMethod', () {
+    test('AddTebiBytesMethod', () {
       final d0 = 4.0 * 1024 * 1024 * 1024 * 1024 * 8;
       final d1 = 4.0 * 1024 * 1024 * 1024 * 1024;
       final d2 = 4.0 * 1024 * 1024 * 1024;
       final d3 = 4.0 * 1024 * 1024;
       final d4 = 4.0 * 1024;
+      final d5 = 4.0;
+
+      final size = ByteSize.FromTebiBytes(2).addTebiBytes(2);
+
+      expect(d0, equals(size.Bits));
+      expect(d1, equals(size.Bytes));
+      expect(d2, equals(size.KibiBytes));
+      expect(d3, equals(size.MebiBytes));
+      expect(d4, equals(size.GibiBytes));
+      expect(d5, equals(size.TebiBytes));
+    });
+
+    test('AddTeraBytesMethod', () {
+      final d0 = 4.0 * 1000 * 1000 * 1000 * 1000 * 8;
+      final d1 = 4.0 * 1000 * 1000 * 1000 * 1000;
+      final d2 = 4.0 * 1000 * 1000 * 1000;
+      final d3 = 4.0 * 1000 * 1000;
+      final d4 = 4.0 * 1000;
       final d5 = 4.0;
 
       final size = ByteSize.FromTeraBytes(2).addTeraBytes(2);
@@ -96,13 +156,33 @@ void main() {
       expect(d5, equals(size.TeraBytes));
     });
 
-    test('AddPetaBytesMethod', () {
+    test('AddPebiBytesMethod', () {
       final d0 = 4.0 * 1024 * 1024 * 1024 * 1024 * 1024 * 8;
       final d1 = 4.0 * 1024 * 1024 * 1024 * 1024 * 1024;
       final d2 = 4.0 * 1024 * 1024 * 1024 * 1024;
       final d3 = 4.0 * 1024 * 1024 * 1024;
       final d4 = 4.0 * 1024 * 1024;
       final d5 = 4.0 * 1024;
+      final d6 = 4.0;
+
+      final size = ByteSize.FromPebiBytes(2).addPebiBytes(2);
+
+      expect(d0, equals(size.Bits));
+      expect(d1, equals(size.Bytes));
+      expect(d2, equals(size.KibiBytes));
+      expect(d3, equals(size.MebiBytes));
+      expect(d4, equals(size.GibiBytes));
+      expect(d5, equals(size.TebiBytes));
+      expect(d6, equals(size.PebiBytes));
+    });
+    
+    test('AddPetaBytesMethod', () {
+      final d0 = 4.0 * 1000 * 1000 * 1000 * 1000 * 1000 * 8;
+      final d1 = 4.0 * 1000 * 1000 * 1000 * 1000 * 1000;
+      final d2 = 4.0 * 1000 * 1000 * 1000 * 1000;
+      final d3 = 4.0 * 1000 * 1000 * 1000;
+      final d4 = 4.0 * 1000 * 1000;
+      final d5 = 4.0 * 1000;
       final d6 = 4.0;
 
       final size = ByteSize.FromPetaBytes(2).addPetaBytes(2);
@@ -144,11 +224,24 @@ void main() {
       // Assert
       expect(d0, equals(result.Bits));
       expect(byteSize, equals(result.Bytes));
-      expect(d1, equals(result.KiloBytes));
-      expect(d2, equals(result.MegaBytes));
-      expect(d3, equals(result.GigaBytes));
-      expect(d4, equals(result.TeraBytes));
-      expect(1, equals(result.PetaBytes));
+      expect(d1, equals(result.KibiBytes));
+      expect(d2, equals(result.MebiBytes));
+      expect(d3, equals(result.GibiBytes));
+      expect(d4, equals(result.TebiBytes));
+      expect(1, equals(result.PebiBytes));
+
+      final d5 = byteSize / 1000;
+      final d6 = byteSize / 1000 / 1000;
+      final d7 = byteSize / 1000 / 1000 / 1000;
+      final d8 = byteSize / 1000 / 1000 / 1000 / 1000;
+      final d9 = byteSize / 1000 / 1000 / 1000 / 1000 / 1000;
+
+      expect(formatDecimalPrecision(d5), equals(result.KiloBytes));
+      expect(formatDecimalPrecision(d6), equals(result.MegaBytes));
+      expect(formatDecimalPrecision(d7), equals(result.GigaBytes));
+      expect(formatDecimalPrecision(d8), equals(result.TeraBytes));
+      expect(formatDecimalPrecision(d9), equals(result.PetaBytes));
+
     });
 
     test('FromBitsMethod', () {
@@ -172,31 +265,67 @@ void main() {
       expect(d0, equals(result.Bytes));
     });
 
+    test('FromKibiBytesMethod', () {
+      // Act
+      final result = ByteSize.FromKibiBytes(val);
+
+      // Assert
+      expect(1536, equals(result.Bytes));
+      expect(d0, equals(result.KibiBytes));
+    });
+    
     test('FromKiloBytesMethod', () {
       // Act
       final result = ByteSize.FromKiloBytes(val);
 
       // Assert
-      expect(1536, equals(result.Bytes));
+      expect(1500, equals(result.Bytes));
       expect(d0, equals(result.KiloBytes));
     });
 
+    test('FromMebiBytesMethod', () {
+      // Act
+      final result = ByteSize.FromMebiBytes(val);
+
+      // Assert
+      expect(1572864, equals(result.Bytes));
+      expect(d0, equals(result.MebiBytes));
+    });
+    
     test('FromMegaBytesMethod', () {
       // Act
       final result = ByteSize.FromMegaBytes(val);
 
       // Assert
-      expect(1572864, equals(result.Bytes));
+      expect(1500000, equals(result.Bytes));
       expect(d0, equals(result.MegaBytes));
     });
 
+    test('FromGibiBytesMethod', () {
+      // Act
+      final result = ByteSize.FromGibiBytes(val);
+
+      // Assert
+      expect(1610612736, equals(result.Bytes));
+      expect(d0, equals(result.GibiBytes));
+    });
+    
     test('FromGigaBytesMethod', () {
       // Act
       final result = ByteSize.FromGigaBytes(val);
 
       // Assert
-      expect(1610612736, equals(result.Bytes));
+      expect(1500000000, equals(result.Bytes));
       expect(d0, equals(result.GigaBytes));
+    });
+
+    test('FromTebiBytesMethod', () {
+      // Act
+      final result = ByteSize.FromTebiBytes(val);
+
+      // Assert
+      expect(1649267441664, equals(result.Bytes));
+      expect(d0, equals(result.TebiBytes));
     });
 
     test('FromTeraBytesMethod', () {
@@ -204,8 +333,17 @@ void main() {
       final result = ByteSize.FromTeraBytes(val);
 
       // Assert
-      expect(1649267441664, equals(result.Bytes));
+      expect(1500000000000, equals(result.Bytes));
       expect(d0, equals(result.TeraBytes));
+    });
+
+    test('FromPebiBytesMethod', () {
+      // Act
+      final result = ByteSize.FromPebiBytes(val);
+
+      // Assert
+      expect(1688849860263936, equals(result.Bytes));
+      expect(d0, equals(result.PebiBytes));
     });
 
     test('FromPetaBytesMethod', () {
@@ -213,12 +351,12 @@ void main() {
       final result = ByteSize.FromPetaBytes(val);
 
       // Assert
-      expect(1688849860263936, equals(result.Bytes));
+      expect(1500000000000000, equals(result.Bytes));
       expect(d0, equals(result.PetaBytes));
     });
   });
 
-  group('ParsingMethodsTest', () {
+  group('ParsingMethodsTest', () { 
     test('Parse', () {
       final val = '1020KB';
       final expected = ByteSize.FromKiloBytes(1020);
@@ -276,6 +414,14 @@ void main() {
       expect(expected, equals(result));
     });
 
+    test('ParseWorksWithSmallLetters', () {
+      final val = '100 kb';
+      final expected = ByteSize.FromKiloBytes(100);
+      final result = ByteSize.Parse(val);
+
+      expect(expected, equals(result));
+    });
+
     test('ParsePartialBits', () {
       final val = '10.5b';
 
@@ -306,9 +452,25 @@ void main() {
       expect(expected, equals(result));
     });
 
+    test('ParseKiB', () {
+      final val = '1020KiB';
+      final expected = ByteSize.FromKibiBytes(1020);
+      final result = ByteSize.Parse(val);
+
+      expect(expected, equals(result));
+    });
+
     test('ParseKB', () {
       final val = '1020KB';
       final expected = ByteSize.FromKiloBytes(1020);
+      final result = ByteSize.Parse(val);
+
+      expect(expected, equals(result));
+    });
+
+    test('ParseMiB', () {
+      final val = '1000MiB';
+      final expected = ByteSize.FromMebiBytes(1000);
       final result = ByteSize.Parse(val);
 
       expect(expected, equals(result));
@@ -322,6 +484,14 @@ void main() {
       expect(expected, equals(result));
     });
 
+    test('ParseGiB', () {
+      final val = '805GiB';
+      final expected = ByteSize.FromGibiBytes(805);
+      final result = ByteSize.Parse(val);
+
+      expect(expected, equals(result));
+    });
+
     test('ParseGB', () {
       final val = '805GB';
       final expected = ByteSize.FromGigaBytes(805);
@@ -330,9 +500,25 @@ void main() {
       expect(expected, equals(result));
     });
 
+    test('ParseTiB', () {
+      final val = '100TiB';
+      final expected = ByteSize.FromTebiBytes(100);
+      final result = ByteSize.Parse(val);
+
+      expect(expected, equals(result));
+    });
+    
     test('ParseTB', () {
       final val = '100TB';
       final expected = ByteSize.FromTeraBytes(100);
+      final result = ByteSize.Parse(val);
+
+      expect(expected, equals(result));
+    });
+
+    test('ParsePiB', () {
+      final val = '100PiB';
+      final expected = ByteSize.FromPebiBytes(100);
       final result = ByteSize.Parse(val);
 
       expect(expected, equals(result));
@@ -352,11 +538,11 @@ void main() {
       final lDouble = 10.5;
 
       // Arrange
-      final b = ByteSize.FromKiloBytes(10.5);
+      final b = ByteSize.FromKibiBytes(10.5);
 
       // Act
       final result = b.toString();
-      final expected = formatOutputLocale(lDouble, 2, 'KB', 'en_US');
+      final expected = formatOutputLocale(lDouble, 2, 'KiB', 'en_US');
 
       // Assert
       expect(expected, result);
@@ -380,11 +566,11 @@ void main() {
       final lDouble = 10.1234;
 
       // Arrange
-      final b = ByteSize.FromKiloBytes(10.1234);
+      final b = ByteSize.FromKibiBytes(10.1234);
 
       // Act
-      final result = b.toString('KB', 4);
-      final expected = formatOutputLocale(lDouble, 4, 'KB', 'en_US');
+      final result = b.toString('KiB', 4);
+      final expected = formatOutputLocale(lDouble, 4, 'KiB', 'en_US');
 
       // Assert
       expect(expected, result);
@@ -406,62 +592,117 @@ void main() {
       final b = ByteSize.FromBytes(10);
 
       // Act
-      final result = b.toString('B');
+      final result = b.toString('B', 0);
 
       // Assert
       expect('10 B', result);
     });
 
+    test('ReturnsKibiBytes', () {
+      // Arrange
+      final b = ByteSize.FromKibiBytes(10);
+
+      // Act
+      final result = b.toString('KiB', 0);
+
+      // Assert
+      expect('10 KiB', result);
+    });
+    
     test('ReturnsKiloBytes', () {
       // Arrange
       final b = ByteSize.FromKiloBytes(10);
 
       // Act
-      final result = b.toString('KB');
+      final result = b.toString('KB', 0);
 
       // Assert
       expect('10 KB', result);
     });
 
+    test('ReturnsMebiBytes', () {
+      // Arrange
+      final b = ByteSize.FromMebiBytes(10);
+
+      // Act
+      final result = b.toString('MiB', 0);
+
+      // Assert
+      expect('10 MiB', result);
+    });
+    
     test('ReturnsMegaBytes', () {
       // Arrange
       final b = ByteSize.FromMegaBytes(10);
 
       // Act
-      final result = b.toString('MB');
+      final result = b.toString('MB', 0);
 
       // Assert
       expect('10 MB', result);
     });
 
+    test('ReturnsGibiBytes', () {
+      // Arrange
+      final b = ByteSize.FromGibiBytes(10);
+
+      // Act
+      final result = b.toString('GiB', 0);
+
+      // Assert
+      expect('10 GiB', result);
+    });
+    
     test('ReturnsGigaBytes', () {
       // Arrange
       final b = ByteSize.FromGigaBytes(10);
 
       // Act
-      final result = b.toString('GB');
+      final result = b.toString('GB', 0);
 
       // Assert
       expect('10 GB', result);
     });
 
+    test('ReturnsTebiBytes', () {
+      // Arrange
+      final b = ByteSize.FromTebiBytes(10);
+
+      // Act
+      final result = b.toString('TiB', 0);
+
+      // Assert
+      expect('10 TiB', result);
+    });
+    
     test('ReturnsTeraBytes', () {
       // Arrange
       final b = ByteSize.FromTeraBytes(10);
 
       // Act
-      final result = b.toString('TB');
+      final result = b.toString('TB', 0);
 
       // Assert
       expect('10 TB', result);
     });
 
+    test('ReturnsPebiBytes', () {
+      // Arrange
+      final b = ByteSize.FromPebiBytes(10);
+
+      // Act
+      final result = b.toString('PiB', 0);
+
+      // Assert
+      expect('10 PiB', result);
+    });
+    
     test('ReturnsPetaBytes', () {
       // Arrange
       final b = ByteSize.FromPetaBytes(10);
 
       // Act
-      final result = b.toString('PB');
+      final result = b.toString('PB', 0);
 
       // Assert
       expect('10 PB', result);
@@ -471,11 +712,11 @@ void main() {
       final lDouble = 10.0;
 
       // Arrange
-      final b = ByteSize.FromTeraBytes(10);
+      final b = ByteSize.FromTebiBytes(10);
 
       // Act
-      final result = b.toString('TB');
-      final expected = formatOutputLocale(lDouble, 2, 'TB', 'en_US');
+      final result = b.toString('TiB');
+      final expected = formatOutputLocale(lDouble, 2, 'TiB', 'en_US');
 
       // Assert
       expect(expected, result);
@@ -483,61 +724,93 @@ void main() {
 
     test('ReturnsLargestMetricPrefixLargerThanZero', () {
       // Arrange
-      final b = ByteSize.FromMegaBytes(0.5);
+      final b = ByteSize.FromMebiBytes(0.5);
 
       // Act
-      final result = b.toString('KB');
+      final result = b.toString('KiB', 0);
 
       // Assert
-      expect('512 KB', result);
+      expect('512 KiB', result);
     });
 
     test('ReturnsLargestMetricSuffixUsingCustomFormatSettingsOne', () {
       // Arrange
-      final b = ByteSize.FromKiloBytes(10000);
+      final b = ByteSize.FromKibiBytes(10000);
 
       // Act
-      final result = b.toString('MB', 2, 'fr_CA');
+      final result = b.toString('MiB', 2, 'fr_CA');
 
       // Assert
-      expect('9,77 MB', result);
+      expect('9,77 MiB', result);
     });
 
     test('ReturnsLargestMetricSuffixUsingCustomFormatSettingsTwo', () {
       // Arrange
-      final b = ByteSize.FromKiloBytes(10000);
+      final b = ByteSize.FromKibiBytes(10000);
 
       // Act
-      final result = b.toString('MB', 1, 'de_DE');
+      final result = b.toString('MiB', 1, 'de_DE');
 
       // Assert
-      expect('9,8 MB', result);
+      expect('9,8 MiB', result);
     });
 
     test('ReturnsLargestMetricSuffixUsingCustomFormatSettingsThree', () {
       final lDouble = 10.5;
 
       // Arrange
-      final b = ByteSize.FromKiloBytes(10.5);
+      final b = ByteSize.FromKibiBytes(10.5);
 
       // Act
-      final result = b.toString('KB', 1, 'de_DE');
-      final expected = formatOutputLocale(lDouble, 1, 'KB', 'de_DE');
+      final result = b.toString('KiB', 1, 'de_DE');
+      final expected = formatOutputLocale(lDouble, 1, 'KiB', 'de_DE');
 
       // Assert
       expect(expected, result);
     });
-
+    
     test('ReturnsLargestMetricSuffixUsingCurrentLocale', () {
       // Arrange
-      final b = ByteSize.FromKiloBytes(10000);
+      final b = ByteSize.FromKibiBytes(10000);
 
       // Act
-      final result = b.toString('MB', 2, 'fr_CA');
+      final result = b.toString('MiB', 2, 'fr_CA');
 
       // Assert
-      expect('9,77 MB', result);
+      expect('9,77 MiB', result);
     });
+
+    test('CheckRepresentationInToStringUsingBinaryFormat', () {
+      // Arrange
+      final b = ByteSize.FromMebiBytes(0.5);
+
+      // Act
+      final result = b.toString('', 0, 'en_US', true, true);
+
+      // Assert
+      expect('512 KiB', result);
+    });
+
+    test('CheckRepresentationInToStringNotUsingBinaryFormat', () {
+      // Arrange
+      final b = ByteSize.FromMebiBytes(0.5);
+
+      // Act
+      final result = b.toString('', 3, 'en_US', true, false);
+
+      // Assert
+      expect('524.288 KB', result);
+    });
+
+    test('NegativePrecisionInToStringThrowsFormatException', () {
+      // Arrange
+      final b = ByteSize.FromMebiBytes(0.5);
+
+      // Assert
+      expect(() => b.toString('', -1),
+          throwsA(predicate((e) => e is FormatException)));
+    });
+
   });
 
   group('ComparableMethodTest', () {
@@ -605,35 +878,35 @@ void main() {
       var obj = decoder.convert(jsonText) as Map;
 
       expect(bs.Bits.toString(), equals(obj['b']));
-      expect(bs.Bytes.toStringAsFixed(20), equals(obj['B']));
-      expect(bs.KiloBytes.toStringAsFixed(20), equals(obj['KB']));
-      expect(bs.MegaBytes.toStringAsFixed(20), equals(obj['MB']));
-      expect(bs.GigaBytes.toStringAsFixed(20), equals(obj['GB']));
-      expect(bs.TeraBytes.toStringAsFixed(20), equals(obj['TB']));
-      expect(bs.PetaBytes.toStringAsFixed(20), equals(obj['PB']));
+      expect(bs.Bytes.toStringAsFixed(9), equals(obj['B']));
+      expect(bs.KiloBytes.toStringAsFixed(9), equals(obj['KB']));
+      expect(bs.MegaBytes.toStringAsFixed(9), equals(obj['MB']));
+      expect(bs.GigaBytes.toStringAsFixed(9), equals(obj['GB']));
+      expect(bs.TeraBytes.toStringAsFixed(9), equals(obj['TB']));
+      expect(bs.PetaBytes.toStringAsFixed(9), equals(obj['PB']));
     });
 
     test('fromJson', () {
-      final json = {'B': 1024, 'KB': 1}; // 1024 Bytes == 1KB
+      final json = {'B': 1024, 'KiB': 1}; // 1024 Bytes == 1KiB
       var bs = ByteSize.fromJson(json);
 
       expect(json['B'], equals(bs.Bytes));
-      expect(json['KB'], equals(bs.KiloBytes));
-      expect(bs.MegaBytes, isNotNull);
+      expect(json['KiB'], equals(bs.KibiBytes));
+      expect(bs.MebiBytes, isNotNull);
 
       // Taking Precedence into consideration
-      final json2 = {'KB': '1024', 'B': '10000', 'GB': '20'};
+      final json2 = {'KiB': '1024', 'B': '10000', 'GiB': '20'};
       bs = ByteSize.fromJson(json2);
 
       expect(double.parse(json2['B']!) == bs.Bytes, isTrue);
-      expect(double.parse(json2['KB']!) == bs.KiloBytes, isFalse);
-      expect(double.parse(json2['GB']!) == bs.GigaBytes, isFalse);
+      expect(double.parse(json2['KiB']!) == bs.KibiBytes, isFalse);
+      expect(double.parse(json2['GiB']!) == bs.GibiBytes, isFalse);
 
-      final json3 = {'KB': '1024', 'GB': '20'};
+      final json3 = {'KiB': '1024', 'GiB': '20'};
       bs = ByteSize.fromJson(json3);
 
-      expect(double.parse(json2['KB']!) == bs.KiloBytes, isTrue);
-      expect(double.parse(json2['GB']!) == bs.GigaBytes, isFalse);
+      expect(double.parse(json2['KiB']!) == bs.KibiBytes, isTrue);
+      expect(double.parse(json2['GiB']!) == bs.GibiBytes, isFalse);
     });
   });
 }
