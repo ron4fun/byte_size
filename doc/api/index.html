@@ -3,103 +3,95 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="generator" content="made with love by dartdoc 0.9.14-dev">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 6.0.0">
   <meta name="description" content="byte_size API docs, for the Dart programming language.">
   <title>byte_size - Dart API docs</title>
 
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Roboto:500,400italic,300,400' type='text/css'>
-  <link rel="stylesheet" href="static-assets/prettify.css">
-  <link rel="stylesheet" href="static-assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="static-assets/styles.css">
-  <link rel="icon" href="static-assets/favicon.png">
 
-  <!-- Do not remove placeholder -->
-  <!-- Header Placeholder -->
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
 </head>
 
-<body>
+
+<body data-base-href="" data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
-<header class="container-fluid" id="title">
-  <nav class="navbar navbar-fixed-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 contents">
-          <ol class="breadcrumbs gt-separated hidden-xs">
-            <li class="self-crumb">byte_size</li>
-          </ol>
-          <div class="self-name">byte_size</div>
-          <form class="search navbar-right" role="search">
-            <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
-          </form>
-        </div> <!-- /col -->
-      </div> <!-- /row -->
-    </div> <!-- /container -->
-  </nav>
-
-  <div class="container masthead">
-    <div class="row">
-      <div class="col-sm-12 contents">
-        <ol class="breadcrumbs gt-separated visible-xs">
-        </ol>
-        <div class="title-description">
-          <h1 class="title">
-            <span class="kind">package</span> byte_size
-          </h1>
-        </div>
-        <ul class="subnav">
-          <li><a href="index.html#libraries">Libraries</a></li>
-        </ul>
-      </div> <!-- /col -->
-    </div> <!-- /row -->
-  </div> <!-- /container -->
-
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://github.com/ron4fun/byte_size">byte_size package</a></li>
+  </ol>
+  <div class="self-name">byte_size</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
 </header>
 
-<div class="container body">
-  <div class="row">
-
-  <div class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
-    <h5>byte_size</h5>
+<main>
 
 
-    <ol>
-      <li class="section-title"><a href="index.html#libraries">Libraries</a></li>
-      <li><a href="byte_size/byte_size-library.html">byte_size</a></li>
-    </ol>
-  </div>
-
-  <div class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <section class="desc markdown">
-        <h2>ByteSize <a href="https://github.com/Ron4fun/byte_size/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg"></a> <a href="https://travis-ci.org/Ron4fun/byte_size"><img alt="Build Status" src="https://travis-ci.org/Ron4fun/byte_size.svg?branch=master"></a></h2>
-<p><strong><code>ByteSize</code></strong> is a library written in <strong>Dart</strong> language that handles how byte sizes are represented and an easy to use interface to convert to other forms of representation also taking locale into consideration.</p>
-<h2>Usage</h2>
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h2 id="bytesize-licensehttpsimgshieldsiobadgelicense-mit-bluesvghttpsgithubcomron4funbyte_sizeblobmasterlicense-build-statushttpstravis-ciorgron4funbyte_sizesvgbranchmasterhttpstravis-ciorgron4funbyte_size">ByteSize <a href="https://github.com/Ron4fun/byte_size/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a> <a href="https://travis-ci.org/Ron4fun/byte_size"><img src="https://travis-ci.org/Ron4fun/byte_size.svg?branch=master" alt="Build Status"></a></h2>
+<p><strong><code>ByteSize</code></strong> is a null safe library written in <strong>Dart</strong> language that handles how byte sizes are represented and an easy to use interface to convert to other forms of representation also taking locale into consideration. While adopting the <code>International Electrotechnical Commission</code> (<a href="https://en.wikipedia.org/wiki/Byte">IEC</a>) proposed standard (kibi, mebi, gibi etc.).</p>
+<h2 id="usage">Usage</h2>
 <p>A simple usage example:</p>
-<pre class="language-dart prettyprint"><code class="language-dart">import 'package:byte_size/byte_size.dart';
-import 'package:locales/locales.dart';
-import 'dart:convert';
+<pre class="language-dart"><code class="language-dart">import 'package:byte_size/byte_size.dart';
 
 void main() {
-  var size = ByteSize.FromKiloBytes(10000);
-    print(size.toString('MB', 3, Locale.fr_CA)); // 9,766 MB
-  
-    var json = size.toJson();
-    print(json);
-    // {"b":"81920000","B":"10240000.00000000000000000000","KB":"10000.00000000000000000000",
-    // "MB":"9.76562500000000000000","GB":"0.00953674316406250000","TB":"0.00000931322574615479",
-    // "PB":"0.00000000909494701773"}
-  
-    var size2 = size.copy();
-    print(size2.toString('KB')); // 10,000 KB
-  
-    var size3 = ByteSize.fromJson(json);
-    print(size3.toString('KB')); // 10,000 KB
+  var size = ByteSize.FromKibiBytes(10000);
+  print(size.toString('MiB', 3, 'fr_CA')); // 9,766 MiB
+
+  var json = size.toJson();
+  print(json);
+  // {b: 81920000, B: 10240000.000000000, KiB: 10000.000000000, 
+  // MiB: 9.765625000, GiB: 0.009536743, TiB: 0.000009313, PiB: 0.000000009, 
+  // KB: 10240.000000000, MB: 10.240000000, GB: 0.010240000, 
+  // TB: 0.000010240, PB: 0.000000010}
+
+  var size2 = size.copy();
+  print(size2.toString('KiB', 0)); // 10,000 KiB
+
+  var size3 = ByteSize.fromJson(json);
+  print(size3.toString()); // 9.77 MiB
+  print(size3.toString('', 2, 'en_US', true, false)); // 10.24 MB
 }
 </code></pre>
-<h2>License</h2>
-<pre class="prettyprint language-dart"><code>Copyright (c) 2020 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
+<h3 id="the-tostring-function"><strong>The <code>toString</code> Function</strong></h3>
+<p>An empty input string <code>symbol</code> returns the largest whole number value with the unit. Also, negative precision throws the <code>FormatException</code> and if the input string <code>symbol</code> is incorrectly formatted. And, the <code>toString</code> function allows you to choose how you want your ByteSize object string to be display either using the <em><strong>Binary</strong></em> or <em><strong>Decimal</strong></em> representation.</p>
+<h3 id="all-the-acceptable-input-string-symbol-formats"><strong>All The Acceptable Input String Symbol Formats</strong></h3>
+<p>Here are all the acceptable input string <code>symbol</code> formats:</p>
+<pre class="language-dart"><code>"b" =&gt; Bit
+"B" =&gt; Byte 
+"KiB" =&gt; KibiByte 
+"KB" =&gt; KiloByte
+"MiB" =&gt; MebiByte 
+"MB" =&gt; MegaByte
+"GiB" =&gt; GibiByte 
+"GB" =&gt; GigaByte
+"TiB" =&gt; TebiByte
+"TB" =&gt; TeraByte
+"PiB" =&gt; PebiByte 
+"PB" =&gt; PetaByte
+"EiB" =&gt; ExbiByte
+"EB" =&gt; ExaByte
+
+</code></pre>
+<p>All symbols between parenthesis are good. Also, be careful about the 
+case-sentivity when it comes to <code>b</code> and <code>B</code>.</p>
+<h2 id="license">License</h2>
+<pre class="language-dart"><code>Copyright (c) 2020 - 2022 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the author be held liable for any damages
@@ -120,63 +112,72 @@ misrepresented as being the original software.
     
  
 </code></pre>
-<h4>Tip Jar</h4><ul><li>:dollar: <strong>Bitcoin</strong>: <code>1Mcci95WffSJnV6PsYG7KD1af1gDfUvLe6</code></li></ul>
-<h2>Conclusion</h2>
-<p>   Special thanks to <a href="https://github.com/xor-el">Xor-el</a> for making this library available in the first place.</p>
-      </section>
-      
+<h4 id="tip-jar">Tip Jar</h4>
+<ul>
+<li>:dollar: <strong>Bitcoin</strong>: <code>1Mcci95WffSJnV6PsYG7KD1af1gDfUvLe6</code></li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Special thanks to <a href="https://github.com/xor-el">Xor-el</a> for making this library available in the first place.</p>
+</section>
 
-      <section class="summary" id="libraries">
-        <h2>Libraries</h2>
+
+      <section class="summary">
+          <h2>Libraries</h2>
         <dl>
-            <dt id="byte_size">
-              <span class="name"><a href="byte_size/byte_size-library.html">byte_size</a></span>
-            </dt>
-            <dd>
-              <p></p>
-            </dd>
+          <dt id="byte_size">
+  <span class="name"><a href="byte_size/byte_size-library.html">byte_size</a></span> 
+
+</dt>
+<dd>
+</dd>
+
         </dl>
       </section>
 
   </div> <!-- /.main-content -->
 
-  <div class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
 
-  </div><!--/.sidebar-offcanvas-right-->
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="https://github.com/ron4fun/byte_size">byte_size package</a></li>
+</ol>
 
-</div> <!-- row -->
-</div> <!-- container -->
+
+    <h5 class="hidden-xs"><span class="package-name">byte_size</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="byte_size/byte_size-library.html">byte_size</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
 
 <footer>
-  <div class="container-fluid">
-    <div class="container">
-      <p class="text-center">
-        <span class="no-break">
-          byte_size 1.4.1
-        </span>
-        &bull;
-        <span class="no-break">
-          <a href="https://www.dartlang.org">
-            <img src="static-assets/favicon.png" alt="Dart" title="Dart" width="16" height="16">
-          </a>
-        </span>
-        &bull;
-        <span class="copyright no-break">
-          <a href="http://creativecommons.org/licenses/by-sa/4.0/">cc license</a>
-        </span>
-      </p>
-    </div>
-  </div>
+  <span class="no-break">
+    byte_size
+      2.1.0-nullsafety.0
+  </span>
+
+  
 </footer>
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="static-assets/typeahead.bundle.min.js"></script>
-<script src="static-assets/prettify.js"></script>
-<script src="static-assets/URI.js"></script>
-<script src="static-assets/script.js"></script>
-<!-- Do not remove placeholder -->
-<!-- Footer Placeholder -->
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
 
 </body>
 
 </html>
+
