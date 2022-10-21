@@ -1,3 +1,7 @@
+## 2.1.0
+
+- Implemented the `International Electrotechnical Commission` ([IEC](https://en.wikipedia.org/wiki/Byte)) proposed standard (kibi, mebi, gibi etc.).
+
 ## 2.0.0
 
 - Migrated package to null safety
