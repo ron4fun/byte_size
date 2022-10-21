@@ -1,5 +1,7 @@
+// ignore_for_file: unnecessary_null_comparison
+
 /*
-Copyright (c) 2020 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
+Copyright (c) 2020 -2022 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
 
     This software is provided 'as-is', without any express or implied
     warranty. In no event will the author be held liable for any damages
@@ -45,14 +47,26 @@ class ArgumentNullException implements Exception {
 class ByteSize implements Comparable {
   static const int _Int64MaxValue = 9223372036854775807;
   static const int _BitsInByte = 8;
-  static const int _BytesInKiloByte = 1024;
-  static const int _BytesInMegaByte = 1048576;
-  static const int _BytesInGigaByte = 1073741824;
-  static const int _BytesInTeraByte = 1099511627776;
-  static const int _BytesInPetaByte = 1125899906842624;
+  static const int _BytesInKibiByte = 1024;
+  static const int _BytesInMebiByte = 1048576;
+  static const int _BytesInGibiByte = 1073741824;
+  static const int _BytesInTebiByte = 1099511627776;
+  static const int _BytesInPebiByte = 1125899906842624;
+
+  static const int _BytesInKiloByte = 1000;
+  static const int _BytesInMegaByte = 1000000;
+  static const int _BytesInGigaByte = 1000000000;
+  static const int _BytesInTeraByte = 1000000000000;
+  static const int _BytesInPetaByte = 1000000000000000;
 
   static const String _BitSymbol = 'b';
   static const String _ByteSymbol = 'B';
+  static const String _KibiByteSymbol = 'KiB';
+  static const String _MebiByteSymbol = 'MiB';
+  static const String _GibiByteSymbol = 'GiB';
+  static const String _TebiByteSymbol = 'TiB';
+  static const String _PebiByteSymbol = 'PiB';
+
   static const String _KiloByteSymbol = 'KB';
   static const String _MegaByteSymbol = 'MB';
   static const String _GigaByteSymbol = 'GB';
@@ -74,25 +88,26 @@ class ByteSize implements Comparable {
   static const List<String> _SymbolArray = [
     'b',
     'B',
+    'KiB',
     'KB',
-    'kB',
-    'kb',
+    'MiB',
     'MB',
-    'mB',
-    'mb',
+    'GiB',
     'GB',
-    'gB',
-    'gb',
+    'TiB',
     'TB',
-    'tB',
-    'tb',
-    'PB',
-    'pB',
-    'pb'
+    'PiB',
+    'PB'
   ];
 
   late int _Bits;
   late num _Bytes;
+  late num _KibiBytes;
+  late num _MebiBytes;
+  late num _GibiBytes;
+  late num _TebiBytes;
+  late num _PebiBytes;
+
   late num _KiloBytes;
   late num _MegaBytes;
   late num _GigaBytes;
@@ -111,11 +126,17 @@ class ByteSize implements Comparable {
     _Bits = tempDouble.toInt();
 
     _Bytes = byteSize;
-    _KiloBytes = byteSize / _BytesInKiloByte;
-    _MegaBytes = byteSize / _BytesInMegaByte;
-    _GigaBytes = byteSize / _BytesInGigaByte;
-    _TeraBytes = byteSize / _BytesInTeraByte;
-    _PetaBytes = byteSize / _BytesInPetaByte;
+    _KibiBytes = _FormatDecimalPrecision(byteSize / _BytesInKibiByte);
+    _MebiBytes = _FormatDecimalPrecision(byteSize / _BytesInMebiByte);
+    _GibiBytes = _FormatDecimalPrecision(byteSize / _BytesInGibiByte);
+    _TebiBytes = _FormatDecimalPrecision(byteSize / _BytesInTebiByte);
+    _PebiBytes = _FormatDecimalPrecision(byteSize / _BytesInPebiByte);
+
+    _KiloBytes = _FormatDecimalPrecision(byteSize / _BytesInKiloByte);
+    _MegaBytes = _FormatDecimalPrecision(byteSize / _BytesInMegaByte);
+    _GigaBytes = _FormatDecimalPrecision(byteSize / _BytesInGigaByte);
+    _TeraBytes = _FormatDecimalPrecision(byteSize / _BytesInTeraByte);
+    _PetaBytes = _FormatDecimalPrecision(byteSize / _BytesInPetaByte);
   } // end constructor
 
   /// Returns the size in Bits
@@ -124,52 +145,149 @@ class ByteSize implements Comparable {
   /// Returns the size in Bytes
   num get Bytes => _Bytes;
 
+  /// Returns the size in KibiBytes
+  num get KibiBytes => _KibiBytes;
+
   /// Returns the size in KiloBytes
   num get KiloBytes => _KiloBytes;
+
+  /// Returns the size in MebiBytes
+  num get MebiBytes => _MebiBytes;
 
   /// Returns the size in MegaBytes
   num get MegaBytes => _MegaBytes;
 
+  /// Returns the size in GibiBytes
+  num get GibiBytes => _GibiBytes;
+
   /// Returns the size in GigaBytes
   num get GigaBytes => _GigaBytes;
+
+  /// Returns the size in TebiBytes
+  num get TebiBytes => _TebiBytes;
 
   /// Returns the size in TeraBytes
   num get TeraBytes => _TeraBytes;
 
+  /// Returns the size in PebiBytes
+  num get PebiBytes => _PebiBytes;
+
   /// Returns the size in PetaBytes
   num get PetaBytes => _PetaBytes;
 
-  String _largestWholeNumberSymbol() {
-    // Absolute value is used to deal with negative values
-    if (PetaBytes.abs() >= 1) {
-      return _PetaByteSymbol;
-    } else if (TeraBytes.abs() >= 1) {
-      return _TeraByteSymbol;
-    } else if (GigaBytes.abs() >= 1) {
-      return _GigaByteSymbol;
-    } else if (MegaBytes.abs() >= 1) {
-      return _MegaByteSymbol;
-    } else if (KiloBytes.abs() >= 1) {
-      return _KiloByteSymbol;
-    } else if (Bytes.abs() >= 1) {
+  String _largestWholeNumberSymbol(
+      [bool check_repr = false, bool binary_format = true]) {
+    if (check_repr) {
+      if (binary_format) {
+        if (PebiBytes.abs() >= 1) {
+          return _PebiByteSymbol;
+        } else if (TebiBytes.abs() >= 1) {
+          return _TebiByteSymbol;
+        } else if (GibiBytes.abs() >= 1) {
+          return _GibiByteSymbol;
+        } else if (MebiBytes.abs() >= 1) {
+          return _MebiByteSymbol;
+        } else if (KibiBytes.abs() >= 1) {
+          return _KibiByteSymbol;
+        }
+      } else {
+        if (PetaBytes.abs() >= 1) {
+          return _PetaByteSymbol;
+        } else if (TeraBytes.abs() >= 1) {
+          return _TeraByteSymbol;
+        } else if (GigaBytes.abs() >= 1) {
+          return _GigaByteSymbol;
+        } else if (MegaBytes.abs() >= 1) {
+          return _MegaByteSymbol;
+        } else if (KiloBytes.abs() >= 1) {
+          return _KiloByteSymbol;
+        }
+      }
+    } else {
+      // Absolute value is used to deal with negative values
+      if (PebiBytes.abs() >= 1) {
+        return _PebiByteSymbol;
+      } else if (PetaBytes.abs() >= 1) {
+        return _PetaByteSymbol;
+      } else if (TebiBytes.abs() >= 1) {
+        return _TebiByteSymbol;
+      } else if (TeraBytes.abs() >= 1) {
+        return _TeraByteSymbol;
+      } else if (GibiBytes.abs() >= 1) {
+        return _GibiByteSymbol;
+      } else if (GigaBytes.abs() >= 1) {
+        return _GigaByteSymbol;
+      } else if (MebiBytes.abs() >= 1) {
+        return _MebiByteSymbol;
+      } else if (MegaBytes.abs() >= 1) {
+        return _MegaByteSymbol;
+      } else if (KibiBytes.abs() >= 1) {
+        return _KibiByteSymbol;
+      } else if (KiloBytes.abs() >= 1) {
+        return _KiloByteSymbol;
+      }
+    }
+
+    if (Bytes.abs() >= 1) {
       return _ByteSymbol;
     }
     return _BitSymbol;
   } // end function largestWholeNumberSymbol
 
-  num _largestWholeNumberValue() {
-    // Absolute value is used to deal with negative values
-    if (PetaBytes.abs() >= 1) {
-      return PetaBytes;
-    } else if (TeraBytes.abs() >= 1) {
-      return TeraBytes;
-    } else if (GigaBytes.abs() >= 1) {
-      return GigaBytes;
-    } else if (MegaBytes.abs() >= 1) {
-      return MegaBytes;
-    } else if (KiloBytes.abs() >= 1) {
-      return KiloBytes;
-    } else if (Bytes.abs() >= 1) {
+  num _largestWholeNumberValue(
+      [bool check_repr = false, bool binary_format = true]) {
+    if (check_repr) {
+      if (binary_format) {
+        if (PebiBytes.abs() >= 1) {
+          return PebiBytes;
+        } else if (TebiBytes.abs() >= 1) {
+          return TebiBytes;
+        } else if (GibiBytes.abs() >= 1) {
+          return GibiBytes;
+        } else if (MebiBytes.abs() >= 1) {
+          return MebiBytes;
+        } else if (KibiBytes.abs() >= 1) {
+          return KibiBytes;
+        }
+      } else {
+        if (PetaBytes.abs() >= 1) {
+          return PetaBytes;
+        } else if (TeraBytes.abs() >= 1) {
+          return TeraBytes;
+        } else if (GigaBytes.abs() >= 1) {
+          return GigaBytes;
+        } else if (MegaBytes.abs() >= 1) {
+          return MegaBytes;
+        } else if (KiloBytes.abs() >= 1) {
+          return KiloBytes;
+        }
+      }
+    } else {
+      // Absolute value is used to deal with negative values
+      if (PebiBytes.abs() >= 1) {
+        return PebiBytes;
+      } else if (PetaBytes.abs() >= 1) {
+        return PetaBytes;
+      } else if (TebiBytes.abs() >= 1) {
+        return TebiBytes;
+      } else if (TeraBytes.abs() >= 1) {
+        return TeraBytes;
+      } else if (GibiBytes.abs() >= 1) {
+        return GibiBytes;
+      } else if (GigaBytes.abs() >= 1) {
+        return GigaBytes;
+      } else if (MebiBytes.abs() >= 1) {
+        return MebiBytes;
+      } else if (MegaBytes.abs() >= 1) {
+        return MegaBytes;
+      } else if (KibiBytes.abs() >= 1) {
+        return KibiBytes;
+      } else if (KiloBytes.abs() >= 1) {
+        return KiloBytes;
+      }
+    }
+
+    if (Bytes.abs() >= 1) {
       return Bytes;
     }
     return Bits;
@@ -191,6 +309,14 @@ class ByteSize implements Comparable {
   static ByteSize FromBytes(num value) =>
       ByteSize(value); // end function FromBytes
 
+  /// Returns a ByteSize object initialized by size in KibiBytes.
+  ///
+  /// ```dart
+  /// var size = ByteSize.FromKibiBytes(10);
+  /// ```
+  static ByteSize FromKibiBytes(num value) =>
+      ByteSize(value * _BytesInKibiByte); // end function FromKibiBytes
+
   /// Returns a ByteSize object initialized by size in KiloBytes.
   ///
   /// ```dart
@@ -198,6 +324,14 @@ class ByteSize implements Comparable {
   /// ```
   static ByteSize FromKiloBytes(num value) =>
       ByteSize(value * _BytesInKiloByte); // end function FromKiloBytes
+
+  /// Returns a ByteSize object initialized by size in MebiBytes.
+  ///
+  /// ```dart
+  /// var size = ByteSize.FromMebiBytes(10);
+  /// ```
+  static ByteSize FromMebiBytes(num value) =>
+      ByteSize(value * _BytesInMebiByte); // end function FromMebiBytes
 
   /// Returns a ByteSize object initialized by size in MegaBytes.
   ///
@@ -207,6 +341,14 @@ class ByteSize implements Comparable {
   static ByteSize FromMegaBytes(num value) =>
       ByteSize(value * _BytesInMegaByte); // end function FromMegaBytes
 
+  /// Returns a ByteSize object initialized by size in GibiBytes.
+  ///
+  /// ```dart
+  /// var size = ByteSize.FromGibiBytes(10);
+  /// ```
+  static ByteSize FromGibiBytes(num value) =>
+      ByteSize(value * _BytesInGibiByte); // end function FromGibiBytes
+
   /// Returns a ByteSize object initialized by size in GigaBytes.
   ///
   /// ```dart
@@ -215,6 +357,14 @@ class ByteSize implements Comparable {
   static ByteSize FromGigaBytes(num value) =>
       ByteSize(value * _BytesInGigaByte); // end function FromGigaBytes
 
+  /// Returns a ByteSize object initialized by size in TebiBytes.
+  ///
+  /// ```dart
+  /// var size = ByteSize.FromTebiBytes(10);
+  /// ```
+  static ByteSize FromTebiBytes(num value) =>
+      ByteSize(value * _BytesInTebiByte); // end function FromTebiBytes
+
   /// Returns a ByteSize object initialized by size in TeraBytes.
   ///
   /// ```dart
@@ -222,6 +372,14 @@ class ByteSize implements Comparable {
   /// ```
   static ByteSize FromTeraBytes(num value) =>
       ByteSize(value * _BytesInTeraByte); // end function FromTeraBytes
+
+  /// Returns a ByteSize object initialized by size in PebiBytes.
+  ///
+  /// ```dart
+  /// var size = ByteSize.FromPebiBytes(10);
+  /// ```
+  static ByteSize FromPebiBytes(num value) =>
+      ByteSize(value * _BytesInPebiByte); // end function FromPebiBytes
 
   /// Returns a ByteSize object initialized by size in PetaBytes.
   ///
@@ -250,6 +408,12 @@ class ByteSize implements Comparable {
 
     _Bits = bs.Bits;
     _Bytes = bs.Bytes;
+    _KibiBytes = bs.KibiBytes;
+    _MebiBytes = bs.MebiBytes;
+    _GibiBytes = bs.GibiBytes;
+    _TebiBytes = bs.TebiBytes;
+    _PebiBytes = bs.PebiBytes;
+
     _KiloBytes = bs.KiloBytes;
     _MegaBytes = bs.MegaBytes;
     _GigaBytes = bs.GigaBytes;
@@ -261,19 +425,25 @@ class ByteSize implements Comparable {
   Map<String, Object> toJson() {
     var entityMap = <String, Object>{};
     entityMap[_BitSymbol] = Bits.toString();
-    entityMap[_ByteSymbol] = Bytes.toStringAsFixed(20);
-    entityMap[_KiloByteSymbol] = KiloBytes.toStringAsFixed(20);
-    entityMap[_MegaByteSymbol] = MegaBytes.toStringAsFixed(20);
-    entityMap[_GigaByteSymbol] = GigaBytes.toStringAsFixed(20);
-    entityMap[_TeraByteSymbol] = TeraBytes.toStringAsFixed(20);
-    entityMap[_PetaByteSymbol] = PetaBytes.toStringAsFixed(20);
+    entityMap[_ByteSymbol] = Bytes.toStringAsFixed(9);
+    entityMap[_KibiByteSymbol] = KibiBytes.toStringAsFixed(9);
+    entityMap[_MebiByteSymbol] = MebiBytes.toStringAsFixed(9);
+    entityMap[_GibiByteSymbol] = GibiBytes.toStringAsFixed(9);
+    entityMap[_TebiByteSymbol] = TebiBytes.toStringAsFixed(9);
+    entityMap[_PebiByteSymbol] = PebiBytes.toStringAsFixed(9);
+
+    entityMap[_KiloByteSymbol] = KiloBytes.toStringAsFixed(9);
+    entityMap[_MegaByteSymbol] = MegaBytes.toStringAsFixed(9);
+    entityMap[_GigaByteSymbol] = GigaBytes.toStringAsFixed(9);
+    entityMap[_TeraByteSymbol] = TeraBytes.toStringAsFixed(9);
+    entityMap[_PetaByteSymbol] = PetaBytes.toStringAsFixed(9);
     return entityMap;
   } // end function toJson
 
   /// Initialize ByteSize object from JSON object
-  /// according to order of precedence i.e from 'b' -> 'PB',
-  /// where 'b' has higher precedence to 'KB' and 'MB' has higher
-  /// precedence to 'GB' and so on.
+  /// according to order of precedence i.e from 'b' -> 'PiB',
+  /// where 'b' has higher precedence to 'KiB' and 'KiB' has higher
+  /// precedence to 'KB' and so on.
   ByteSize.fromJson(Map<String, Object> entityMap) {
     ByteSize bs;
 
@@ -286,22 +456,42 @@ class ByteSize implements Comparable {
         bs = FromBytes(entityMap[_ByteSymbol] is String
             ? num.parse(entityMap[_ByteSymbol] as String)
             : entityMap[_ByteSymbol] as int);
+      } else if (entityMap.containsKey(_KibiByteSymbol)) {
+        bs = FromKibiBytes(entityMap[_KibiByteSymbol] is String
+            ? num.parse(entityMap[_KibiByteSymbol] as String)
+            : entityMap[_KibiByteSymbol] as int);
       } else if (entityMap.containsKey(_KiloByteSymbol)) {
         bs = FromKiloBytes(entityMap[_KiloByteSymbol] is String
             ? num.parse(entityMap[_KiloByteSymbol] as String)
             : entityMap[_KiloByteSymbol] as int);
+      } else if (entityMap.containsKey(_MebiByteSymbol)) {
+        bs = FromMebiBytes(entityMap[_MebiByteSymbol] is String
+            ? num.parse(entityMap[_MebiByteSymbol] as String)
+            : entityMap[_MebiByteSymbol] as int);
       } else if (entityMap.containsKey(_MegaByteSymbol)) {
         bs = FromMegaBytes(entityMap[_MegaByteSymbol] is String
             ? num.parse(entityMap[_MegaByteSymbol] as String)
             : entityMap[_MegaByteSymbol] as int);
+      } else if (entityMap.containsKey(_GibiByteSymbol)) {
+        bs = FromGibiBytes(entityMap[_GibiByteSymbol] is String
+            ? num.parse(entityMap[_GibiByteSymbol] as String)
+            : entityMap[_GibiByteSymbol] as int);
       } else if (entityMap.containsKey(_GigaByteSymbol)) {
         bs = FromGigaBytes(entityMap[_GigaByteSymbol] is String
             ? num.parse(entityMap[_GigaByteSymbol] as String)
             : entityMap[_GigaByteSymbol] as int);
+      } else if (entityMap.containsKey(_TebiByteSymbol)) {
+        bs = FromTebiBytes(entityMap[_TebiByteSymbol] is String
+            ? num.parse(entityMap[_TebiByteSymbol] as String)
+            : entityMap[_TebiByteSymbol] as int);
       } else if (entityMap.containsKey(_TeraByteSymbol)) {
         bs = FromTeraBytes(entityMap[_TeraByteSymbol] is String
             ? num.parse(entityMap[_TeraByteSymbol] as String)
             : entityMap[_TeraByteSymbol] as int);
+      } else if (entityMap.containsKey(_PebiByteSymbol)) {
+        bs = FromPebiBytes(entityMap[_PebiByteSymbol] is String
+            ? num.parse(entityMap[_PebiByteSymbol] as String)
+            : entityMap[_PebiByteSymbol] as int);
       } else if (entityMap.containsKey(_PetaByteSymbol)) {
         bs = FromPetaBytes(entityMap[_PetaByteSymbol] is String
             ? num.parse(entityMap[_PetaByteSymbol] as String)
@@ -326,21 +516,41 @@ class ByteSize implements Comparable {
   ByteSize addBytes(num value) =>
       this + FromBytes(value); // end function addBytes
 
+  /// Returns the sum of size in KibiBytes and current ByteSize instance.
+  ByteSize addKibiBytes(num value) =>
+      this + FromKibiBytes(value); // end function addKibiBytes
+
   /// Returns the sum of size in KiloBytes and current ByteSize instance.
   ByteSize addKiloBytes(num value) =>
       this + FromKiloBytes(value); // end function addKiloBytes
+
+  /// Returns the sum of size in MebiBytes and current ByteSize instance.
+  ByteSize addMebiBytes(num value) =>
+      this + FromMebiBytes(value); // end function addMebiBytes
 
   /// Returns the sum of size in MegaBytes and current ByteSize instance.
   ByteSize addMegaBytes(num value) =>
       this + FromMegaBytes(value); // end function addMegaBytes
 
+  /// Returns the sum of size in GibiBytes and current ByteSize instance.
+  ByteSize addGibiBytes(num value) =>
+      this + FromGibiBytes(value); // end function addGibiBytes
+
   /// Returns the sum of size in GigaBytes and current ByteSize instance.
   ByteSize addGigaBytes(num value) =>
       this + FromGigaBytes(value); // end function addGigaBytes
 
+  /// Returns the sum of size in TebiBytes and current ByteSize instance.
+  ByteSize addTebiBytes(num value) =>
+      this + FromTebiBytes(value); // end function addTebiBytes
+
   /// Returns the sum of size in TeraBytes and current ByteSize instance.
   ByteSize addTeraBytes(num value) =>
       this + FromTeraBytes(value); // end function addTeraBytes
+
+  /// Returns the sum of size in PebiBytes and current ByteSize instance.
+  ByteSize addPebiBytes(num value) =>
+      this + FromPebiBytes(value); // end function addPebiBytes
 
   /// Returns the sum of size in PetaBytes and current ByteSize instance.
   ByteSize addPetaBytes(num value) =>
@@ -376,34 +586,62 @@ class ByteSize implements Comparable {
   ByteSize operator -(ByteSize bs) => subtract(bs);
 
   /// Returns the string representation of the ByteSize instance
-  /// i.e passing the [symbol], [precision] and or [locale_LANG] as arguments.
+  /// i.e passing the [symbol], [precision], [locale_LANG], [check_repr] and or [binary_format] as arguments.
   ///
   /// ```dart
-  /// var size = ByteSize.FromKiloBytes(10000);
-  /// print(size.ToString('MB', 1, Locale.fr_CA)); // 9,8 MB
+  /// var size = ByteSize.FromKibiBytes(10000);
+  /// print(size.ToString('MiB', 1, Locale.fr_CA)); // 9,8 MiB
   /// ```
   @override
   String toString(
-      [String symbol = 'KB', int precision = 2, String locale_LANG = 'en_US']) {
+      [String symbol = '',
+      int precision = 2,
+      String locale_LANG = 'en_US',
+      bool check_repr = false,
+      bool binary_format = true]) {
+
+    if (precision < 0) throw FormatException('Precision cannot be negative');
+
     symbol = symbol.replaceAll(' ', '');
 
-    if (symbol.contains('PB')) {
-      return '${_Output(PetaBytes, precision, locale_LANG)} $symbol';
-    } else if (symbol.contains('TB')) {
-      return '${_Output(TeraBytes, precision, locale_LANG)} $symbol';
-    } else if (symbol.contains('GB')) {
-      return '${_Output(GigaBytes, precision, locale_LANG)} $symbol';
-    } else if (symbol.contains('MB')) {
-      return '${_Output(MegaBytes, precision, locale_LANG)} $symbol';
-    } else if (symbol.contains('KB')) {
-      return '${_Output(KiloBytes, precision, locale_LANG)} $symbol';
-    } else if (symbol.contains(_ByteSymbol)) {
-      return '${_Output(Bytes, precision, locale_LANG)} $symbol';
-    } else if (symbol.contains(_BitSymbol)) {
-      return '${_Output(Bits.toDouble(), precision, locale_LANG)} $symbol';
+    if (symbol.isEmpty) {
+      return '${_Output(_largestWholeNumberValue(check_repr, binary_format), precision, locale_LANG)} ${_largestWholeNumberSymbol(check_repr, binary_format)}';
     }
-    return '${_Output(_largestWholeNumberValue(), precision, locale_LANG)} ${_largestWholeNumberSymbol()}';
+
+    if (symbol.length != 1) {
+      if (_EqualsIgnoreCase(symbol, 'PiB')) {
+        return '${_Output(PebiBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'PB')) {
+        return '${_Output(PetaBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'TiB')) {
+        return '${_Output(TebiBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'TB')) {
+        return '${_Output(TeraBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'GiB')) {
+        return '${_Output(GibiBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'GB')) {
+        return '${_Output(GigaBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'MiB')) {
+        return '${_Output(MebiBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'MB')) {
+        return '${_Output(MegaBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'KiB')) {
+        return '${_Output(KibiBytes, precision, locale_LANG)} $symbol';
+      } else if (_EqualsIgnoreCase(symbol, 'KB')) {
+        return '${_Output(KiloBytes, precision, locale_LANG)} $symbol';
+      }
+    } else {
+      if (symbol == _ByteSymbol) {
+        return '${_Output(Bytes, precision, locale_LANG)} $symbol';
+      } else if (symbol == _BitSymbol) {
+        return '${_Output(Bits.toDouble(), precision, locale_LANG)} $symbol';
+      }
+    }
+    throw FormatException('Symbol is not in the correct format');
   } // end function toString
+
+  static bool _EqualsIgnoreCase(String a, String b) =>
+      a.toLowerCase() == b.toLowerCase();
 
   static String _Output(num digits, int precision, locale) {
     try {
@@ -413,6 +651,10 @@ class ByteSize implements Comparable {
       throw FormatException('locale language not in the correct format');
     }
   } // end function _Output
+
+  static double _FormatDecimalPrecision(num digits, [int precision = 9]) {
+      return double.parse(digits.toStringAsFixed(precision));
+  } // end function _FormatDecimalPrecision
 
   static double _FloatingMod(double a, double b) =>
       a - b * (a ~/ b); // end function _FloatingMod
@@ -428,8 +670,8 @@ class ByteSize implements Comparable {
   /// Returns a ParseOutput object by parsing a string value.
   ///
   /// ```dart
-  /// ParseOutput output = ByteSize.TryParse('1024MB');
-  /// output.ByteSizeObj == ByteSize.FromMegaBytes(1024);
+  /// ParseOutput output = ByteSize.TryParse('1024MiB');
+  /// output.ByteSizeObj == ByteSize.FromMebiBytes(1024);
   /// ```
   static ParseOutput TryParse(String value) {
     // Return a Boolean and a ByteSize object
@@ -473,9 +715,19 @@ class ByteSize implements Comparable {
     }
 
     // Get the magnitude part
-    int tempInt;
+    var tempInt = 0;
     try {
-      tempInt = _SymbolArray.indexOf(sizePart);
+      for (var i = 0; i < _SymbolArray.length; i++) {
+        if (i > 1 && _EqualsIgnoreCase(sizePart, _SymbolArray[i])) {
+          tempInt = i;
+          break;
+        } else if (sizePart ==
+            _SymbolArray[i]) // sensitive comparison for b and B symbols
+        {
+          tempInt = i;
+          break;
+        }
+      }
     } on Exception {
       return ParseOutput(true, ByteSize());
     }
@@ -488,24 +740,27 @@ class ByteSize implements Comparable {
       }
 
       return ParseOutput(false, ByteSize.FromBits(number.toInt()));
-    }
-
-    if (tempInt == 1) {
+    } else if (tempInt == 1) {
       return ParseOutput(false, ByteSize.FromBytes(number));
-    }
-    if ([2, 3, 4].contains(tempInt)) {
+    } else if (tempInt == 2) {
+      return ParseOutput(false, ByteSize.FromKibiBytes(number));
+    } else if (tempInt == 3) {
       return ParseOutput(false, ByteSize.FromKiloBytes(number));
-    }
-    if ([5, 6, 7].contains(tempInt)) {
+    } else if (tempInt == 4) {
+      return ParseOutput(false, ByteSize.FromMebiBytes(number));
+    } else if (tempInt == 5) {
       return ParseOutput(false, ByteSize.FromMegaBytes(number));
-    }
-    if ([8, 9, 10].contains(tempInt)) {
+    } else if (tempInt == 6) {
+      return ParseOutput(false, ByteSize.FromGibiBytes(number));
+    } else if (tempInt == 7) {
       return ParseOutput(false, ByteSize.FromGigaBytes(number));
-    }
-    if ([11, 12, 13].contains(tempInt)) {
+    } else if (tempInt == 8) {
+      return ParseOutput(false, ByteSize.FromTebiBytes(number));
+    } else if (tempInt == 9) {
       return ParseOutput(false, ByteSize.FromTeraBytes(number));
-    }
-    if ([14, 15, 16].contains(tempInt)) {
+    } else if (tempInt == 10) {
+      return ParseOutput(false, ByteSize.FromPebiBytes(number));
+    } else if (tempInt == 11) {
       return ParseOutput(false, ByteSize.FromPetaBytes(number));
     }
     return ParseOutput(true, ByteSize());
@@ -515,7 +770,7 @@ class ByteSize implements Comparable {
   /// throws an exception if argument is incorrectly formatted.
   ///
   /// ```dart
-  /// ByteSize.Parse('1024MB') == ByteSize.FromMegaBytes(1024);
+  /// ByteSize.Parse('1024MiB') == ByteSize.FromMebiBytes(1024);
   /// ```
   static ByteSize Parse(String value) {
     var output = TryParse(value);
