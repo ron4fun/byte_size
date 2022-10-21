@@ -3,6 +3,7 @@
 .packages
 .idea/
 .vs/
+.vscode/
 
 # Omit commiting pubspec.lock for library packages:
 # https://dart.dev/guides/libraries/private-files#pubspeclock
