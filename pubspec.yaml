@@ -1,7 +1,6 @@
-author: "Mbadiwe Nnaemeka Ronald <ron2tele@gmail.com>"
 name: byte_size
 description: ByteSize is a library that handles how byte sizes are represented and an easy to use interface to convert to other forms of representation also taking locale into consideration.
-version: 2.0.0-nullsafety.0
+version: 2.1.0-nullsafety.0
 homepage: https://github.com/ron4fun/byte_size
 repository: https://github.com/ron4fun/byte_size
 
