@@ -1,4 +1,4 @@
-## 2.1.0
+## 2.1.0-nullsafety.0
 
 - Implemented the `International Electrotechnical Commission` ([IEC](https://en.wikipedia.org/wiki/Byte)) proposed standard (kibi, mebi, gibi etc.).
 
