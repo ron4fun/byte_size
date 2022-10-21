@@ -1,6 +1,6 @@
 ## ByteSize [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Ron4fun/byte_size/blob/master/LICENSE) [![Build Status](https://travis-ci.org/Ron4fun/byte_size.svg?branch=master)](https://travis-ci.org/Ron4fun/byte_size)
 
-**`ByteSize`** is a null safe library written in **Dart** language that handles how byte sizes are represented and an easy to use interface to convert to other forms of representation also taking locale into consideration.
+**`ByteSize`** is a null safe library written in **Dart** language that handles how byte sizes are represented and an easy to use interface to convert to other forms of representation also taking locale into consideration. While adopting the `International Electrotechnical Commission` ([IEC](https://en.wikipedia.org/wiki/Byte)) proposed standard (kibi, mebi, gibi etc.).
 
 ## Usage
 
@@ -10,25 +10,56 @@ A simple usage example:
 import 'package:byte_size/byte_size.dart';
 
 void main() {
-  var size = ByteSize.FromKiloBytes(10000);
-  print(size.toString('MB', 3, 'fr_CA')); // 9,766 MB
+  var size = ByteSize.FromKibiBytes(10000);
+  print(size.toString('MiB', 3, 'fr_CA')); // 9,766 MiB
 
   var json = size.toJson();
   print(json);
-  // {"b":"81920000","B":"10240000.00000000000000000000","KB":"10000.00000000000000000000",
-  // "MB":"9.76562500000000000000","GB":"0.00953674316406250000","TB":"0.00000931322574615479",
-  // "PB":"0.00000000909494701773"}
+  // {b: 81920000, B: 10240000.000000000, KiB: 10000.000000000, 
+  // MiB: 9.765625000, GiB: 0.009536743, TiB: 0.000009313, PiB: 0.000000009, 
+  // KB: 10240.000000000, MB: 10.240000000, GB: 0.010240000, 
+  // TB: 0.000010240, PB: 0.000000010}
 
   var size2 = size.copy();
-  print(size2.toString('KB')); // 10,000 KB
+  print(size2.toString('KiB', 0)); // 10,000 KiB
 
   var size3 = ByteSize.fromJson(json);
-  print(size3.toString('KB')); // 10,000 KB
+  print(size3.toString()); // 9.77 MiB
+  print(size3.toString('', 2, 'en_US', true, false)); // 10.24 MB
 }
 ```
+
+
+### **The `toString` Function**
+
+An empty input string `symbol` returns the largest whole number value with the unit. Also, negative precision throws the `FormatException` and if the input string `symbol` is incorrectly formatted. And, the `toString` function allows you to choose how you want your ByteSize object string to be display either using the ***Binary*** or ***Decimal*** representation.
+
+### **All The Acceptable Input String Symbol Formats**
+ 
+	
+Here are all the acceptable input string `symbol` formats:
+
+	"b" => Bit
+	"B" => Byte 
+	"KiB" => KibiByte 
+	"KB" => KiloByte
+	"MiB" => MebiByte 
+	"MB" => MegaByte
+	"GiB" => GibiByte 
+	"GB" => GigaByte
+	"TiB" => TebiByte
+	"TB" => TeraByte
+	"PiB" => PebiByte 
+	"PB" => PetaByte
+	"EiB" => ExbiByte
+	"EB" => ExaByte
+	
+All symbols between parenthesis are good. Also, be careful about the 
+	  case-sentivity when it comes to `b` and `B`.
+
 License
 ----------
-    Copyright (c) 2020 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
+    Copyright (c) 2020 - 2022 Mbadiwe Nnaemeka Ronald ron2tele@gmail.com
 
     This software is provided 'as-is', without any express or implied
     warranty. In no event will the author be held liable for any damages
