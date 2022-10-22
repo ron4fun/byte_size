@@ -53,7 +53,7 @@ void main() {
 
       expect(4 * 1024 * 8, equals(size.Bits));
       expect(d1, equals(size.Bytes));
-      expect(d2, equals(size.KibiBytes));
+      expect(d2, equals(formatDecimalPrecision(size.KibiBytes, 0)));
     });
 
     test('AddKiloBytesMethod', () {
@@ -63,7 +63,7 @@ void main() {
 
       expect(4 * 1000 * 8, equals(size.Bits));
       expect(d1, equals(size.Bytes));
-      expect(d2, equals(size.KiloBytes));
+      expect(d2, equals(formatDecimalPrecision(size.KiloBytes, 0)));
     });
 
     test('AddMebiBytesMethod', () {
@@ -236,11 +236,11 @@ void main() {
       final d8 = byteSize / 1000 / 1000 / 1000 / 1000;
       final d9 = byteSize / 1000 / 1000 / 1000 / 1000 / 1000;
 
-      expect(formatDecimalPrecision(d5), equals(result.KiloBytes));
-      expect(formatDecimalPrecision(d6), equals(result.MegaBytes));
-      expect(formatDecimalPrecision(d7), equals(result.GigaBytes));
-      expect(formatDecimalPrecision(d8), equals(result.TeraBytes));
-      expect(formatDecimalPrecision(d9), equals(result.PetaBytes));
+      expect(formatDecimalPrecision(d5), equals(formatDecimalPrecision(result.KiloBytes)));
+      expect(formatDecimalPrecision(d6), equals(formatDecimalPrecision(result.MegaBytes)));
+      expect(formatDecimalPrecision(d7), equals(formatDecimalPrecision(result.GigaBytes)));
+      expect(formatDecimalPrecision(d8), equals(formatDecimalPrecision(result.TeraBytes)));
+      expect(formatDecimalPrecision(d9), equals(formatDecimalPrecision(result.PetaBytes)));
 
     });
 
@@ -878,12 +878,12 @@ void main() {
       var obj = decoder.convert(jsonText) as Map;
 
       expect(bs.Bits.toString(), equals(obj['b']));
-      expect(bs.Bytes.toStringAsFixed(9), equals(obj['B']));
-      expect(bs.KiloBytes.toStringAsFixed(9), equals(obj['KB']));
-      expect(bs.MegaBytes.toStringAsFixed(9), equals(obj['MB']));
-      expect(bs.GigaBytes.toStringAsFixed(9), equals(obj['GB']));
-      expect(bs.TeraBytes.toStringAsFixed(9), equals(obj['TB']));
-      expect(bs.PetaBytes.toStringAsFixed(9), equals(obj['PB']));
+      expect(bs.Bytes.toStringAsFixed(20), equals(obj['B']));
+      expect(bs.KiloBytes.toStringAsFixed(20), equals(obj['KB']));
+      expect(bs.MegaBytes.toStringAsFixed(20), equals(obj['MB']));
+      expect(bs.GigaBytes.toStringAsFixed(20), equals(obj['GB']));
+      expect(bs.TeraBytes.toStringAsFixed(20), equals(obj['TB']));
+      expect(bs.PetaBytes.toStringAsFixed(20), equals(obj['PB']));
     });
 
     test('fromJson', () {
