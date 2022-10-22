@@ -126,17 +126,17 @@ class ByteSize implements Comparable {
     _Bits = tempDouble.toInt();
 
     _Bytes = byteSize;
-    _KibiBytes = _FormatDecimalPrecision(byteSize / _BytesInKibiByte);
-    _MebiBytes = _FormatDecimalPrecision(byteSize / _BytesInMebiByte);
-    _GibiBytes = _FormatDecimalPrecision(byteSize / _BytesInGibiByte);
-    _TebiBytes = _FormatDecimalPrecision(byteSize / _BytesInTebiByte);
-    _PebiBytes = _FormatDecimalPrecision(byteSize / _BytesInPebiByte);
+    _KibiBytes = byteSize / _BytesInKibiByte;
+    _MebiBytes = byteSize / _BytesInMebiByte;
+    _GibiBytes = byteSize / _BytesInGibiByte;
+    _TebiBytes = byteSize / _BytesInTebiByte;
+    _PebiBytes = byteSize / _BytesInPebiByte;
 
-    _KiloBytes = _FormatDecimalPrecision(byteSize / _BytesInKiloByte);
-    _MegaBytes = _FormatDecimalPrecision(byteSize / _BytesInMegaByte);
-    _GigaBytes = _FormatDecimalPrecision(byteSize / _BytesInGigaByte);
-    _TeraBytes = _FormatDecimalPrecision(byteSize / _BytesInTeraByte);
-    _PetaBytes = _FormatDecimalPrecision(byteSize / _BytesInPetaByte);
+    _KiloBytes = byteSize / _BytesInKiloByte;
+    _MegaBytes = byteSize / _BytesInMegaByte;
+    _GigaBytes = byteSize / _BytesInGigaByte;
+    _TeraBytes = byteSize / _BytesInTeraByte;
+    _PetaBytes = byteSize / _BytesInPetaByte;
   } // end constructor
 
   /// Returns the size in Bits
@@ -425,18 +425,18 @@ class ByteSize implements Comparable {
   Map<String, Object> toJson() {
     var entityMap = <String, Object>{};
     entityMap[_BitSymbol] = Bits.toString();
-    entityMap[_ByteSymbol] = Bytes.toStringAsFixed(9);
-    entityMap[_KibiByteSymbol] = KibiBytes.toStringAsFixed(9);
-    entityMap[_MebiByteSymbol] = MebiBytes.toStringAsFixed(9);
-    entityMap[_GibiByteSymbol] = GibiBytes.toStringAsFixed(9);
-    entityMap[_TebiByteSymbol] = TebiBytes.toStringAsFixed(9);
-    entityMap[_PebiByteSymbol] = PebiBytes.toStringAsFixed(9);
+    entityMap[_ByteSymbol] = Bytes.toStringAsFixed(20);
+    entityMap[_KibiByteSymbol] = KibiBytes.toStringAsFixed(20);
+    entityMap[_MebiByteSymbol] = MebiBytes.toStringAsFixed(20);
+    entityMap[_GibiByteSymbol] = GibiBytes.toStringAsFixed(20);
+    entityMap[_TebiByteSymbol] = TebiBytes.toStringAsFixed(20);
+    entityMap[_PebiByteSymbol] = PebiBytes.toStringAsFixed(20);
 
-    entityMap[_KiloByteSymbol] = KiloBytes.toStringAsFixed(9);
-    entityMap[_MegaByteSymbol] = MegaBytes.toStringAsFixed(9);
-    entityMap[_GigaByteSymbol] = GigaBytes.toStringAsFixed(9);
-    entityMap[_TeraByteSymbol] = TeraBytes.toStringAsFixed(9);
-    entityMap[_PetaByteSymbol] = PetaBytes.toStringAsFixed(9);
+    entityMap[_KiloByteSymbol] = KiloBytes.toStringAsFixed(20);
+    entityMap[_MegaByteSymbol] = MegaBytes.toStringAsFixed(20);
+    entityMap[_GigaByteSymbol] = GigaBytes.toStringAsFixed(20);
+    entityMap[_TeraByteSymbol] = TeraBytes.toStringAsFixed(20);
+    entityMap[_PetaByteSymbol] = PetaBytes.toStringAsFixed(20);
     return entityMap;
   } // end function toJson
 
@@ -651,10 +651,6 @@ class ByteSize implements Comparable {
       throw FormatException('locale language not in the correct format');
     }
   } // end function _Output
-
-  static double _FormatDecimalPrecision(num digits, [int precision = 9]) {
-      return double.parse(digits.toStringAsFixed(precision));
-  } // end function _FormatDecimalPrecision
 
   static double _FloatingMod(double a, double b) =>
       a - b * (a ~/ b); // end function _FloatingMod
